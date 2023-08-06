@@ -13,8 +13,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <Header></Header>
-    <Cervezas></Cervezas>
-    {/* <App /> */}
+    <App/>
   </React.StrictMode>
 );
 

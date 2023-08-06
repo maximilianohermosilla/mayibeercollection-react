@@ -1,25 +1,35 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { LandingPage, CervezasPage, Administracion } from "./pages";
+import { ProtectedRoute } from "./components/protectedRoute";
+import { User } from "./interfaces/user";
+
 
 function App() {
+  const [user, setUser] = useState<User>();
+
+  let usuario: User = {id: 1, nombre: "Maxi"}
+  const login = () => {
+    setUser(usuario)
+  }
+
+  const logout = () => setUser(undefined);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route index element={<LandingPage></LandingPage>}></Route>
+        <Route path="/" element={<h1 className="text-light">Home</h1>}></Route>
+        <Route path="/landing" element={<LandingPage></LandingPage>}></Route>
+        <Route path="/cervezas" element={<CervezasPage></CervezasPage>}></Route>
+        <Route path="/administracion" element={
+            <ProtectedRoute user={user} redirectTo='/landing'>
+              <Administracion></Administracion>
+            </ProtectedRoute>
+        }></Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
 
