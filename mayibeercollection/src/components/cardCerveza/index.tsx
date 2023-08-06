@@ -13,15 +13,13 @@ export default function CardCerveza({ data }: CardCervezaProps) {
             </div>
         </div>
         <div className={style.cardCerveza_body}>
-            <h3>{data.nombre}</h3>
-            <div>
-                <label>{data.marca?.nombre}</label>
-                <label>{data.estilo?.nombre}</label>
+            <h5>{data.nombre}</h5>
+            <div className={style.carCerveza_body_subtitle}>
+                <label>{data.marca?.nombre} - {data.estilo?.nombre}</label>
             </div>
         </div>
         <div className={style.cardCerveza_footer}>
-            <label>{data.ciudad?.nombre},</label>
-            <label>{data.ciudad?.pais?.nombre}</label>
+            <label>{data.ciudad?.nombre}, {data.ciudad?.pais?.nombre}</label>
         </div>
     </div>
 }

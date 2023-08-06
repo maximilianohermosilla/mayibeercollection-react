@@ -9,6 +9,5 @@ export const getCervezas = async (IdMarca: number, IdEstilo: number, IdCiudad: n
         throw new Error(response.statusText);        
     }
     const data: Cerveza[] = await response.json();
-    console.log(data);
     return data;
 }

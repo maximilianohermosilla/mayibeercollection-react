@@ -1,0 +1,21 @@
+.grillaMain{
+    margin-top: 10px;
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    gap: 1rem;
+    padding: 2rem;
+}
+
+@media screen and (max-width: 800px){    
+    .grillaMain{
+        grid-template-columns: repeat(5, 1fr);        
+        padding: .2rem;
+    }
+}
+
+@media screen and (max-width: 480px){    
+    .grillaMain{
+        grid-template-columns: repeat(3, 1fr);        
+        padding: .2rem;
+    }
+}

@@ -5,14 +5,14 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import Header from './components/header';
-import Cervezas from './components/cervezas';
+import Cervezas from './components/pages/cervezas';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <Header></Header>
+    <Header isLogged={true} isAdmin={false}></Header>
     <App/>
   </React.StrictMode>
 );

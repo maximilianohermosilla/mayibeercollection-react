@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { Cerveza } from "../../interfaces/cerveza";
-import { getCervezas } from "../../services/apiCerveza";
-import CardCerveza from "../cardCerveza";
+import { Cerveza } from "../../../interfaces/cerveza";
+import { getCervezas } from "../../../services/apiCerveza";
+import CardCerveza from "../../cardCerveza";
 import style from './style.module.css'
 
 
@@ -15,8 +15,6 @@ export default function Cervezas() {
 
     const fetchCervezas = async () => {
         let listaCervezas: Cerveza[] = await getCervezas(IdMarca, IdEstilo, IdCiudad, IdPais, fullresponse);
-        console.log(listaCervezas)
-
         setCervezas(listaCervezas);
     }
 

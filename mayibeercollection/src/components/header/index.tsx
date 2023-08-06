@@ -1,4 +1,9 @@
-export default function Header() {
+interface HeaderProps {
+    isLogged: boolean;
+    isAdmin: boolean
+}
+
+export default function Header({ isLogged, isAdmin }: HeaderProps) {
     return (<nav className="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
         <div className="container-fluid">
             <a className="navbar-brand bg-success px-3 rounded-1 text-light" href="#">MayiBeerCollection</a>
@@ -12,25 +17,32 @@ export default function Header() {
                             <span className="visually-hidden">(current)</span>
                         </a>
                     </li>
-                    <li className="nav-item">
+                    {isLogged ? <li className="nav-item dropdown">
+                        <a className="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Administración</a>
+                        <div className="dropdown-menu">
+                            <a className="dropdown-item" href="/administracion/cervezas">Cervezas</a>
+                            <a className="dropdown-item" href="/administracion/marcas">Marcas</a>
+                            <a className="dropdown-item" href="/administracion/estilos">Estilos</a>
+                            <a className="dropdown-item" href="/administracion/ciudades">Ciudades</a>
+                            <a className="dropdown-item" href="/administracion/paises">Países</a>
+                            <div className="dropdown-divider"></div>
+                            <a className="dropdown-item" href="/">Configuración</a>
+                        </div>
+                    </li>: ''}
+
+                    {isAdmin ? <li className="nav-item">
                         <a className="nav-link" href="/administracion">Administración</a>
-                    </li>
+                    </li> : ''}
+
                     <li className="nav-item">
                         <a className="nav-link" href="/cervezas">Cervezas</a>
                     </li>
                     <li className="nav-item">
                         <a className="nav-link" href="/busqueda">Búsqueda</a>
                     </li>
-                    <li className="nav-item dropdown">
-                        <a className="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-                        <div className="dropdown-menu">
-                            <a className="dropdown-item" href="#">Action</a>
-                            <a className="dropdown-item" href="#">Another action</a>
-                            <a className="dropdown-item" href="#">Something else here</a>
-                            <div className="dropdown-divider"></div>
-                            <a className="dropdown-item" href="#">Separated link</a>
-                        </div>
-                    </li>
+                    <li className="nav-item">
+                        <a className="nav-link" href="/reportes">Reportes</a>
+                    </li>                  
                 </ul>
                 <form className="d-flex">
                     <input className="form-control me-sm-2" type="search" placeholder="Buscar" />

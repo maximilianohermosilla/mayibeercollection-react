@@ -1,22 +1,21 @@
-.cardCerveza{
+.card{
     display: flex;
     flex-direction: column;
     justify-content: start;
     align-items: center;
-    border-radius: 16px;
     overflow: hidden;
     box-shadow: 2px 2px 4px rgba(0,0,0,0.7);
     text-align: center;
 }
 
-.cardCerveza_header{
+.card_header{
     display: flex;
     flex-direction: column;
     justify-content: center;
     width: 100%;
 }
 
-.cardCerveza_img{
+.card_img{
     background-color: white;
     overflow: hidden;
     display: flex;
@@ -24,25 +23,30 @@
     justify-content: center;
 }
 
-.cardCerveza_body{
+.card_body{
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 10px;
 }
 
-.carCerveza_body_subtitle{
+.card_body h6{
+    padding: 3px;
+    margin: 0;
+    height: 100%;
+}
+
+.card_body_subtitle{
     color: orange;
 }
 
-.cardCerveza_footer{
+.card_footer{
     padding: 10px;
     display: grid;
     grid-template-columns: 1fr;
 }
 
 @media screen and (max-width: 480px){    
-    .cardCerveza_body, .cardCerveza_footer{
+    .card_body, .card_footer{
         padding: 5px 2px;
     }
 }
