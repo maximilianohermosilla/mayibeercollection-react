@@ -1,4 +1,5 @@
 import { Cerveza } from "../../interfaces/cerveza";
+import ModalCerveza from "../modalCerveza";
 import style from "./style.module.css";
 
 interface CardCervezaProps {
@@ -6,10 +7,11 @@ interface CardCervezaProps {
 }
 
 export default function CardCerveza({ data }: CardCervezaProps) {
-    return <div className={style.cardCerveza}>
+    return <div className={`bg-primary text-light ${style.cardCerveza}`}>
         <div className={style.cardCerveza_header}>
             <div className={style.cardCerveza_img}>
-                <img src={data.imagen} alt={data.nombre} height="100%" width="100%"/>
+                {/* <img className="imagenCerveza" id={data.id?.toString()} src={data.imagen} alt={data.nombre} height="100%" width="100%" /> */}
+                <img className="imagenCerveza" id={data.id?.toString()} src={data.imagen} alt={data.nombre} height="100%" width="100%"  data-bs-toggle="modal" data-bs-target="#modalCerveza"/>
             </div>
         </div>
         <div className={style.cardCerveza_body}>
@@ -18,8 +20,5 @@ export default function CardCerveza({ data }: CardCervezaProps) {
                 <label>{data.marca?.nombre} - {data.estilo?.nombre}</label>
             </div>
         </div>
-        <div className={style.cardCerveza_footer}>
-            <label>{data.ciudad?.nombre}, {data.ciudad?.pais?.nombre}</label>
-        </div>
-    </div>
+    </div>    
 }

@@ -1,10 +1,12 @@
+import style from "./style.module.css";
+
 interface HeaderProps {
     isLogged: boolean;
     isAdmin: boolean
 }
 
 export default function Header({ isLogged, isAdmin }: HeaderProps) {
-    return (<nav className="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
+    return (<nav className={`navbar navbar-expand-lg bg-dark ${style.navbars}`} data-bs-theme="dark">
         <div className="container-fluid">
             <a className="navbar-brand bg-success px-3 rounded-1 text-light" href="#">MayiBeerCollection</a>
             <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
