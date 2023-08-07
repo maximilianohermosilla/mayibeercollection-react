@@ -1,4 +1,5 @@
 import style from "./style.module.css";
+import { IoBeerOutline, IoSearchSharp, IoBarChartOutline, IoBriefcaseOutline, IoHomeOutline, IoBagHandleOutline, IoPintOutline, IoEarthOutline, IoBusinessOutline, IoSettingsOutline  } from "react-icons/io5";
 
 interface HeaderProps {
     isLogged: boolean;
@@ -14,21 +15,22 @@ export default function Header({ isLogged, isAdmin }: HeaderProps) {
             </button>
             <div className="collapse navbar-collapse" id="navbarColor03">
                 <ul className="navbar-nav me-auto">
-                    <li className="nav-item">
-                        <a className="nav-link active" href="/landing">Home
+                    <li className="nav-item px-1">
+                        <a className="nav-link active" href="/landing"><IoHomeOutline></IoHomeOutline> Inicio
                             <span className="visually-hidden">(current)</span>
                         </a>
                     </li>
-                    {isLogged ? <li className="nav-item dropdown">
-                        <a className="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Administración</a>
+                    {isLogged ? <li className="nav-item dropdown px-1">
+                        <a className="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                            <IoBriefcaseOutline></IoBriefcaseOutline> Administración</a>
                         <div className="dropdown-menu">
-                            <a className="dropdown-item" href="/administracion/cervezas">Cervezas</a>
-                            <a className="dropdown-item" href="/administracion/marcas">Marcas</a>
-                            <a className="dropdown-item" href="/administracion/estilos">Estilos</a>
-                            <a className="dropdown-item" href="/administracion/ciudades">Ciudades</a>
-                            <a className="dropdown-item" href="/administracion/paises">Países</a>
+                            <a className="dropdown-item" href="/administracion/cervezas"><IoBeerOutline></IoBeerOutline> Cervezas</a>
+                            <a className="dropdown-item" href="/administracion/marcas"><IoBagHandleOutline></IoBagHandleOutline> Marcas</a>
+                            <a className="dropdown-item" href="/administracion/estilos"><IoPintOutline></IoPintOutline> Estilos</a>
+                            <a className="dropdown-item" href="/administracion/ciudades"><IoBusinessOutline></IoBusinessOutline> Ciudades</a>
+                            <a className="dropdown-item" href="/administracion/paises"><IoEarthOutline></IoEarthOutline> Países</a>
                             <div className="dropdown-divider"></div>
-                            <a className="dropdown-item" href="/">Configuración</a>
+                            <a className="dropdown-item" href="/"><IoSettingsOutline></IoSettingsOutline> Configuración</a>
                         </div>
                     </li>: ''}
 
@@ -36,14 +38,14 @@ export default function Header({ isLogged, isAdmin }: HeaderProps) {
                         <a className="nav-link" href="/administracion">Administración</a>
                     </li> : ''}
 
-                    <li className="nav-item">
-                        <a className="nav-link" href="/cervezas">Cervezas</a>
+                    <li className="nav-item px-1">
+                        <a className="nav-link" href="/cervezas"><IoBeerOutline></IoBeerOutline> Cervezas</a>
                     </li>
-                    <li className="nav-item">
-                        <a className="nav-link" href="/busqueda">Búsqueda</a>
+                    <li className="nav-item px-1">
+                        <a className="nav-link" href="/busqueda"><IoSearchSharp></IoSearchSharp> Búsqueda</a>
                     </li>
-                    <li className="nav-item">
-                        <a className="nav-link" href="/reportes">Reportes</a>
+                    <li className="nav-item px-1">
+                        <a className="nav-link" href="/reportes"><IoBarChartOutline></IoBarChartOutline> Reportes</a>
                     </li>                  
                 </ul>
                 <form className="d-flex">
