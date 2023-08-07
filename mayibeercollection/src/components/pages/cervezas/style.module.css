@@ -6,6 +6,19 @@
     padding: 2rem;
 }
 
+.divTitle{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.divButtonAdd{
+    height: 100%;
+    align-items: center;
+    padding-right: 1rem;
+}
+
 @media screen and (max-width: 800px){    
     .cervezasMain{
         grid-template-columns: repeat(3, 1fr);        

@@ -1,5 +1,4 @@
 import { Cerveza } from "../../interfaces/cerveza";
-import ModalCerveza from "../modalCerveza";
 import style from "./style.module.css";
 
 interface CardCervezaProps {

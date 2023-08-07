@@ -4,6 +4,7 @@ import { getCervezas } from "../../../services/apiCerveza";
 import CardCerveza from "../../cardCerveza";
 import style from './style.module.css'
 import ModalCerveza from "../../modalCerveza";
+import ModalCervezaABM from "../../modalCervezaABM";
 
 
 export default function Cervezas() {
@@ -36,9 +37,13 @@ export default function Cervezas() {
     const renderCervezas = () => cervezas?.map((v, i) => <CardCerveza data={v} key={i}></CardCerveza>)
 
     return (<div>
+        <div className={style.divTitle}>
+            <h1 className="title text-light p-3">Cervezas</h1>
+        </div>
         <div className={`container-fluid text-light ${style.cervezasMain}`}>
             {renderCervezas()}
         </div>
         <ModalCerveza data={cerveza}></ModalCerveza>
+        <ModalCervezaABM data={cerveza}></ModalCervezaABM>
     </div>)
 }
