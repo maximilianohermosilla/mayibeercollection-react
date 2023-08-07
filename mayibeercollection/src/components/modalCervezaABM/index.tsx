@@ -3,12 +3,14 @@ import { IoBagHandleOutline, IoBeerOutline, IoExitOutline, IoListOutline, IoSear
 } from "react-icons/io5";
 import { Cerveza } from "../../interfaces/cerveza";
 import FormCerveza from "../formCerveza";
+import { functionProps } from "../../interfaces/functionProps";
 
 interface ModalCervezaProps {
     data?: Cerveza;
+    agregarCerveza: any
 }
 
-export default function ModalCervezaABM({ data }: ModalCervezaProps) {
+export default function ModalCervezaABM({ data, agregarCerveza }: ModalCervezaProps) {
     return <div className="modal" id="modalCervezaABM" role="dialog" aria-labelledby="modalCervezaTitle" aria-hidden="true">
         <div className="modal-dialog modal-lg" role="document">
             <div className="modal-content  bg-primary text-light">
@@ -26,7 +28,7 @@ export default function ModalCervezaABM({ data }: ModalCervezaProps) {
                         <div className="col-12 col-sm-6  text-left">
                             <h3 className="border border-secondary text-center my-3 bg-dark">Editar</h3>
 
-                            <FormCerveza data={data}></FormCerveza>
+                            <FormCerveza data={data} agregarCerveza={agregarCerveza}></FormCerveza>
 
                         </div>
                     </div>                    

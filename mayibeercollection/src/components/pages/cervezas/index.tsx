@@ -5,7 +5,7 @@ import CardCerveza from "../../cardCerveza";
 import style from './style.module.css'
 import ModalCerveza from "../../modalCerveza";
 import ModalCervezaABM from "../../modalCervezaABM";
-
+import { IoAddCircleOutline } from "react-icons/io5";
 
 export default function Cervezas() {
     const [cervezas, setCervezas] = useState<Cerveza[]>([]);
@@ -34,16 +34,32 @@ export default function Cervezas() {
         });
     }    
 
+    const agregarCerveza = (nuevaCerveza: Cerveza) => {
+        console.log(nuevaCerveza);
+        setCervezas([...cervezas, nuevaCerveza]);
+    }
+
+    const agregarNuevaCerveza = () => {
+        setCerveza(undefined);
+    }
+
     const renderCervezas = () => cervezas?.map((v, i) => <CardCerveza data={v} key={i}></CardCerveza>)
 
     return (<div>
         <div className={style.divTitle}>
-            <h1 className="title text-light p-3">Cervezas</h1>
+            <div>
+                <h1 className="title text-light px-3 pt-2 mb-0">Cervezas</h1>
+            </div>
+            <div className={style.divButtonAdd}>
+                <button type="button" id="btnAgregarCerveza" className="btn btn-success"
+                            data-bs-toggle="modal" data-bs-target="#modalCervezaABM"
+                            onClick={agregarNuevaCerveza}><IoAddCircleOutline></IoAddCircleOutline> Agregar Cerveza</button>
+            </div>
         </div>
         <div className={`container-fluid text-light ${style.cervezasMain}`}>
             {renderCervezas()}
         </div>
         <ModalCerveza data={cerveza}></ModalCerveza>
-        <ModalCervezaABM data={cerveza}></ModalCervezaABM>
+        <ModalCervezaABM data={cerveza} agregarCerveza={agregarCerveza}></ModalCervezaABM>
     </div>)
 }
