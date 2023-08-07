@@ -4,20 +4,21 @@ import { getEstilos } from "../../../../services/apiEstilo";
 import style from './style.module.css'
 import Card from "../../../card";
 import { IoAddCircleOutline } from "react-icons/io5";
+import { Estilo } from "../../../../interfaces/estilo";
 
 export default function AdministracionEstilos() {
-    const [Estilos, setEstilos] = useState<Pais[]>([]);
+    const [estilos, setEstilos] = useState<Estilo[]>([]);
 
     const fetchEstilos = async () => {
-        let lista: Pais[] = await getEstilos();
+        let lista: Estilo[] = await getEstilos();
         setEstilos(lista);
     }
 
     useEffect(() => {
         fetchEstilos();
     }, []);
-    console.log(Estilos);
-    const renderEstilos = () => Estilos?.map((v, i) => <Card data={v} key={i} height={70}></Card>)
+    
+    const renderEstilos = () => estilos?.map((v, i) => <Card data={v} key={i} height={70}></Card>)
 
     return (<div>
         <div className={style.divTitle}>

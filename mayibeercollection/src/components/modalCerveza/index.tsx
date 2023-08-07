@@ -7,7 +7,7 @@ interface ModalCervezaProps {
     data?: Cerveza;
 }
 
-export default function ModalCerveza({ data }: ModalCervezaProps) {
+export default function ModalCerveza({ data }: ModalCervezaProps) {    
     return <div className="modal" id="modalCerveza" role="dialog" aria-labelledby="modalCervezaTitle" aria-hidden="true">
         <div className="modal-dialog modal-lg" role="document">
             <div className="modal-content  bg-primary text-light">

@@ -12,3 +12,13 @@ export const getCervezas = async (IdMarca: number, IdEstilo: number, IdCiudad: n
     const data: Cerveza[] = await response.json();
     return data;
 }
+
+export const getCervezaById = async (id: number, fullresponse: boolean): Promise<Cerveza> => {
+    const url = `${BASE_URL}/Id?Id=${id}&fullresponse=true`;    
+    const response = await fetch(url);
+    if (!response.ok){
+        throw new Error(response.statusText);        
+    }
+    const data: Cerveza = await response.json();
+    return data;
+}

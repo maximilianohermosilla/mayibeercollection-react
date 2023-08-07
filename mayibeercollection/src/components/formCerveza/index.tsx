@@ -1,5 +1,10 @@
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { Cerveza } from "../../interfaces/cerveza";
+import { IoSaveOutline } from "react-icons/io5";
+import SelectListaMarcas from "../select/selectListaMarcas";
+import style from "./style.module.css";
+import SelectListaEstilos from "../select/selectListaEstilos";
+import SelectListaCiudades from "../select/selectListaCiudades";
 
 interface FormCervezaProps {
     data?: Cerveza;
@@ -14,28 +19,18 @@ const initialForm = {
     ibu: 0,
     alcohol: 0,
     idMarca: 0,
-    marca: "",
+    marca: {},
     idEstilo: 0,
-    estilo: "",
+    estilo: {},
     idCiudad: 0,
-    ciudad: "",
+    ciudad: {},
     idPais: 0,
     observaciones: "",
     contenido: 0,
     imagen: "",
 }
 
-export default function FormCerveza({ data, agregarCerveza }: FormCervezaProps) {
-
-    initialForm.nombre = data?.nombre!;
-    initialForm.ibu = data?.ibu!;
-    initialForm.alcohol = data?.alcohol!;
-    initialForm.idMarca = data?.idMarca!;
-    initialForm.idEstilo = data?.idEstilo!;
-    initialForm.idCiudad = data?.idCiudad!;
-    initialForm.observaciones = data?.observaciones!;
-    initialForm.contenido = data?.contenido!;
-    initialForm.imagen = data?.imagen!;
+export default function FormCerveza({ data, agregarCerveza }: FormCervezaProps) {    
     //console.log(data)
     const [cerveza, setCerveza] = useState(initialForm)
 
@@ -48,25 +43,64 @@ export default function FormCerveza({ data, agregarCerveza }: FormCervezaProps) 
         agregarCerveza(cerveza);
         setCerveza(initialForm);
     }
+    
+    initialForm.nombre = data?.nombre!;
+    initialForm.ibu = data?.ibu!;
+    initialForm.alcohol = data?.alcohol!;
+    initialForm.idMarca = data?.idMarca!;
+    initialForm.idEstilo = data?.idEstilo!;
+    initialForm.idCiudad = data?.idCiudad!;
+    initialForm.observaciones = data?.observaciones!;
+    initialForm.contenido = data?.contenido!;
+    initialForm.imagen = data?.imagen!;
+    initialForm.marca = data?.marca!;
+    initialForm.estilo = data?.estilo!;
+    initialForm.ciudad = data?.ciudad!;
 
+    useEffect(() => {    
+        setCerveza(initialForm);
+    }, [])
+    
     return (
         <div>
             <form onSubmit={handleNuevaCerveza}>
-                <div className="row">
+                <div className="row">                    
                     <div className="col-6">
-                        Nombre<input type="text" placeholder="Nombre..." name="nombre" className="form-control" value={cerveza?.nombre} onChange={handleInputChange} />
-                        Marca<input type="text" placeholder="Marca..." name="marca" className="form-control" value={cerveza?.idMarca} onChange={handleInputChange}/>
-                        Estilo<input type="text" placeholder="Estilo..." name="estilo" className="form-control" value={cerveza?.idEstilo} onChange={handleInputChange}/>
-                        Ciudad<input type="text" placeholder="Ciudad..." name="ciudad" className="form-control" value={cerveza?.idCiudad} onChange={handleInputChange}/>
+                        <label>Nombre</label>    
+                        <input type="text" placeholder="Nombre..." name="nombre" className="form-control rounded-0" value={cerveza?.nombre || ""} onChange={handleInputChange} />
+
+                        <label>Marca</label>                        
+                        <div className={`text-primary ${style.divSelect}`}>
+                            <SelectListaMarcas selectedOption={cerveza?.marca}></SelectListaMarcas>
+                        </div>
+
+                        <label>Estilo</label>   
+                        <div className={`text-primary ${style.divSelect}`}>
+                            <SelectListaEstilos selectedOption={cerveza?.estilo}></SelectListaEstilos>
+                        </div>   
+                        
+                        <label>Ciudad</label>   
+                        <div className={`text-primary ${style.divSelect}`}>
+                            <SelectListaCiudades selectedOption={cerveza?.ciudad}></SelectListaCiudades>
+                        </div>  
                     </div>
-                    <div className="col-6">
-                        Alcohol<input type="number" placeholder="Alcohol..." name="alcohol" className="form-control" value={cerveza?.alcohol} onChange={handleInputChange}/>
-                        Ibu<input type="number" placeholder="IBU..." name="ibu" className="form-control" value={cerveza?.ibu} onChange={handleInputChange}/>
-                        Contenido<input type="number" placeholder="Contenido..." name="contenido" className="form-control" value={cerveza?.contenido} onChange={handleInputChange}/>
-                        Observaciones<textarea placeholder="Observaciones..." name="observaciones" className="form-control" value={cerveza?.observaciones} onChange={handleInputChange} />
+
+                    <div className="col-6">                        
+                        <label>Alcohol</label>   
+                        <input type="number" placeholder="Alcohol..." name="alcohol" className="form-control rounded-0" value={cerveza?.alcohol || ""} onChange={handleInputChange}/>
+                        
+                        <label>IBU</label>   
+                        <input type="number" placeholder="IBU..." name="ibu" className="form-control rounded-0" value={cerveza?.ibu || ""} onChange={handleInputChange}/>
+                        
+                        <label>Contenido</label>
+                        <input type="number" placeholder="Contenido..." name="contenido" className="form-control rounded-0" value={cerveza?.contenido || ""} onChange={handleInputChange}/>
+
+                        <label>Observaciones</label>
+                        <textarea placeholder="Observaciones..." name="observaciones" className="form-control rounded-0" value={cerveza?.observaciones || ""} onChange={handleInputChange} />
                     </div>
+
                     <div className="col-12">
-                        <button className="btn btn-success" type="submit">Guardar</button>
+                        <button className="btn btn-success" type="submit"><IoSaveOutline></IoSaveOutline> Guardar</button>
                     </div>
                 </div>
             </form>

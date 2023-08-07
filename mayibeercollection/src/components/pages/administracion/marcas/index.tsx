@@ -16,7 +16,7 @@ export default function AdministracionMarcas() {
     useEffect(() => {
         fetchMarcas();
     }, []);
-    console.log(Marcas);
+    
     const renderMarcas = () => Marcas?.map((v, i) => <Card data={v} key={i} height={70}></Card>)
 
     return (<div>

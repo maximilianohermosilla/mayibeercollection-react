@@ -10,14 +10,18 @@ export default function AdministracionCiudades() {
 
     const fetchCiudades = async () => {
         let lista: Ciudad[] = await getCiudades();
-        setCiudades(lista);
+        let listaMapeada = lista?.map(m => ({ id: m.id, nombre: m.nombre, imagen: m.pais?.imagen, idpais: m.idPais }));
+        listaMapeada.sort((a, b) => a.idpais! - b.idpais!);
+        setCiudades(listaMapeada);
     }
 
     useEffect(() => {
         fetchCiudades();
     }, []);
     console.log(Ciudades);
-    const renderCiudades = () => Ciudades?.map((v, i) => <Card data={v} key={i} height={0}></Card>)
+    const renderCiudades = () => Ciudades?.map((v, i) => <Card data={v} key={i} height={50}></Card>)
+
+    
 
     return (<div>
         <div className={style.divTitle}>

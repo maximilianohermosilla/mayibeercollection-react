@@ -10,7 +10,8 @@ export default function CardCerveza({ data }: CardCervezaProps) {
         <div className={style.cardCerveza_header}>
             <div className={style.cardCerveza_img}>
                 {/* <img className="imagenCerveza" id={data.id?.toString()} src={data.imagen} alt={data.nombre} height="100%" width="100%" /> */}
-                <img className="imagenCerveza" id={data.id?.toString()} src={data.imagen} alt={data.nombre} height="100%" width="100%"  data-bs-toggle="modal" data-bs-target="#modalCerveza"/>
+                <img className="imagenCerveza" id={data.id?.toString()} src={data.imagen} alt={data.nombre} 
+                        height="100%" width="100%"  data-bs-toggle="modal" data-bs-target="#modalCerveza"/>
             </div>
         </div>
         <div className={style.cardCerveza_body}>
