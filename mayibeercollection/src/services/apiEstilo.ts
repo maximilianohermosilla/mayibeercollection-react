@@ -1,6 +1,7 @@
 import { Estilo } from "../interfaces/estilo";
+import { enviroment } from "../interfaces/enviroment";
 
-const BASE_URL: string = "https://localhost:7011/Estilo";
+const BASE_URL: string = enviroment.urlBase() + "Estilo";
 
 export const getEstilos = async (): Promise<Estilo[]> => {
     const url = `${BASE_URL}`;

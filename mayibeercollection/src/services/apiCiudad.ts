@@ -1,6 +1,7 @@
 import { Ciudad } from "../interfaces/ciudad";
+import { enviroment } from "../interfaces/enviroment";
 
-const BASE_URL: string = "https://localhost:7011/Ciudad";
+const BASE_URL: string = enviroment.urlBase() + "Ciudad";
 
 export const getCiudades = async (): Promise<Ciudad[]> => {
     const url = `${BASE_URL}`;

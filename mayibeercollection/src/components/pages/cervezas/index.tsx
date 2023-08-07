@@ -5,7 +5,7 @@ import CardCerveza from "../../cardCerveza";
 import style from './style.module.css'
 import ModalCerveza from "../../modalCerveza";
 import ModalCervezaABM from "../../modalCervezaABM";
-import { IoAddCircleOutline } from "react-icons/io5";
+import { IoAddCircleOutline, IoBeerOutline } from "react-icons/io5";
 
 export default function Cervezas() {
     const [cervezas, setCervezas] = useState<Cerveza[]>([]);
@@ -48,7 +48,7 @@ export default function Cervezas() {
     return (<div>
         <div className={style.divTitle}>
             <div>
-                <h1 className="title text-light px-3 pt-2 mb-0">Cervezas</h1>
+                <h1 className="title text-light-emphasis px-3 pt-2 mb-0"><IoBeerOutline className="text-warning"></IoBeerOutline> Cervezas</h1>
             </div>
             <div className={style.divButtonAdd}>
                 <button type="button" id="btnAgregarCerveza" className="btn btn-success"

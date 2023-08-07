@@ -36,7 +36,7 @@ export default function FormCerveza({ data, agregarCerveza }: FormCervezaProps) 
     initialForm.observaciones = data?.observaciones!;
     initialForm.contenido = data?.contenido!;
     initialForm.imagen = data?.imagen!;
-    console.log(data)
+    //console.log(data)
     const [cerveza, setCerveza] = useState(initialForm)
 
     const handleInputChange = ({target: {name, value}}: HandleInputChange) => {    
