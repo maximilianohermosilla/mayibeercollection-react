@@ -26,7 +26,7 @@ export default function AdministracionCervezas() {
                 <h3 className="title text-warning px-3"><IoBeerOutline className="text-warning mx-2"></IoBeerOutline> Cervezas</h3>
             </div>
             <div className={style.divButtonAdd}>
-                <button type="button" className="btn btn-success"><IoAddCircleOutline></IoAddCircleOutline> Agregar</button>
+                <button type="button" className="btn btn-success">Agregar</button>
             </div>
         </div>
         <div className={`container-fluid text-light ${style.grillaMain}`}>

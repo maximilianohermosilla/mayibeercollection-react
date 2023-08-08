@@ -26,7 +26,7 @@ export default function AdministracionMarcas() {
                 <h3 className="title text-warning px-3"><IoBagHandleOutline className="text-danger mx-2"></IoBagHandleOutline> Marcas</h3>
             </div>
             <div className={style.divButtonAdd}>
-                <button type="button" className="btn btn-success"><IoAddCircleOutline></IoAddCircleOutline> Agregar</button>
+                <button type="button" className="btn btn-success">Agregar</button>
             </div>
         </div>
         <div className={`container-fluid text-light ${style.grillaMain}`}>

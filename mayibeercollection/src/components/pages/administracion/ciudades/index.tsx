@@ -30,7 +30,7 @@ export default function AdministracionCiudades() {
                 <h3 className="title text-warning px-3"><IoBusinessOutline className="text-success mx-2"></IoBusinessOutline> Ciudades</h3>
             </div>
             <div className={style.divButtonAdd}>
-                <button type="button" className="btn btn-success"><IoAddCircleOutline></IoAddCircleOutline> Agregar</button>
+                <button type="button" className="btn btn-success">Agregar</button>
             </div>
         </div>
         <div className={`container-fluid text-light ${style.grillaMain}`}>

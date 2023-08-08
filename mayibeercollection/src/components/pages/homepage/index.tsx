@@ -1,16 +1,41 @@
+import { ReporteResponse } from "../../../interfaces/reporteCervezas";
+import { useEffect, useState } from "react";
 import ModalBootstrap from "../../modal";
 import style from "./style.module.css";
+import imageBeers from "../../../img/beers.jpg";
 import { IoBeerOutline, IoSearchSharp, IoBarChartOutline, IoBriefcaseOutline, 
     IoHomeOutline, IoBagHandleOutline, IoPintOutline, IoEarthOutline, IoBusinessOutline, IoSettingsOutline  } from "react-icons/io5";
+import { getReporte } from "../../../services/apiReporte";
 
 export default function HomepageInicio() {
+    const [reporte, setReporte] = useState<ReporteResponse[]>([]);
+    const [cantidadPaises, setPaises] = useState<any>();
+    const [cantidadMarcas, setMarcas] = useState<any>();
+    const [cantidadEstilos, setEstilos] = useState<any>();
+    const [cantidadCiudades, setCiudades] = useState<any>();
+    
+    const fetchReporte = async () => {
+        let lista: ReporteResponse[] = await getReporte();
+        setReporte(lista);
+        const listaPaises = await lista.filter((thing, i, arr) => arr.findIndex(t => t.idPais === thing.idPais) === i);
+        setPaises(listaPaises);
+        const listaMarcas = await lista.filter((thing, i, arr) => arr.findIndex(t => t.idMarca === thing.idMarca) === i);
+        setMarcas(listaMarcas);
+        const listaEstilos = await lista.filter((thing, i, arr) => arr.findIndex(t => t.idEstilo === thing.idEstilo) === i);
+        setEstilos(listaEstilos);
+    }  
 
-    const navigatePaises = (e: any) => {
-        console.log("paises")
-        console.log(e.target.id)
-        //window.open(baseUrl+'/id/'+id);
-        console.log(window.location.origin)
-        window.location.href = (window.location.origin + "/administracion/" + e.target.id)
+    useEffect(() => {
+        fetchReporte();
+    }, []);
+
+    const navigate = (e: any) => {        
+        if (e.target.id == 'cervezas'){
+            window.location.href = (window.location.origin + "/" + e.target.id);
+        }
+        else{
+            window.location.href = (window.location.origin + "/administracion/" + e.target.id);
+        }        
     }
 
     return (
@@ -22,23 +47,34 @@ export default function HomepageInicio() {
                 <ModalBootstrap data={undefined} showModal={false}></ModalBootstrap>
             </div>           
         </div>
-        <div className="row mt-5 p-3">                
+
+        <div className="container-fluid w-100 text-center p-5">
+            <article className="container w-70">
+                <div className="text-light mt-2">
+                    <h2>{reporte.length} Cervezas</h2>
+                </div>
+                <div className="card-thumb">
+                    <img id="cervezas" src={imageBeers} alt="Cervezas" className={`container w-100 ${style.iconoHome}`} onClick={navigate}/>
+                </div>               
+            </article>
+        </div>
+        <div className="row mt-2 p-3 border border-secondary rounded-1 py-5">                
                 <div className="col-4 d-flex justify-content-center">
                     <div className="row">
-                        <IoEarthOutline id="paises" className={`text-info w-100 ${style.iconoHome}`} size={200} onClick={navigatePaises}></IoEarthOutline>                     
-                        <h4 className="text-light text-center mt-2">Paises</h4>
+                        <IoEarthOutline id="paises" className={`text-info w-100 ${style.iconoHome}`} size={200} onClick={navigate}></IoEarthOutline>                     
+                        <h4 className="text-light text-center mt-2">{cantidadPaises?.length} Paises</h4>
                     </div>
                 </div>
                 <div className="col-4 d-flex justify-content-center">
                     <div className="row">
-                        <IoBagHandleOutline id="marcas" className={`text-danger w-100 ${style.iconoHome}`} size={200} onClick={navigatePaises}></IoBagHandleOutline>                     
-                        <h4 className="text-light text-center mt-2">Marcas</h4>
+                        <IoBagHandleOutline id="marcas" className={`text-danger w-100 ${style.iconoHome}`} size={200} onClick={navigate}></IoBagHandleOutline>                     
+                        <h4 className="text-light text-center mt-2">{cantidadMarcas?.length} Marcas</h4>
                     </div>
                 </div>
                 <div className="col-4 d-flex justify-content-center">
                     <div className="row">
-                        <IoPintOutline id="estilos" className={`text-warning w-100 ${style.iconoHome}`} size={200} onClick={navigatePaises}></IoPintOutline>                     
-                        <h4 className="text-light text-center mt-2">Estilos</h4>
+                        <IoPintOutline id="estilos" className={`text-warning w-100 ${style.iconoHome}`} size={200} onClick={navigate}></IoPintOutline>                     
+                        <h4 className="text-light text-center mt-2">{cantidadEstilos?.length} Estilos</h4>
                     </div>
                 </div>
             </div>

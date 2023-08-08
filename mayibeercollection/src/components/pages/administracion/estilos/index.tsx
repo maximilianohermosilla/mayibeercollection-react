@@ -27,7 +27,7 @@ export default function AdministracionEstilos() {
                 <h3 className="title text-success px-3"><IoPintOutline className="text-warning mx-2"></IoPintOutline>Estilos</h3>
             </div>
             <div className={style.divButtonAdd}>
-                <button type="button" className="btn btn-success"><IoAddCircleOutline></IoAddCircleOutline> Agregar</button>
+                <button type="button" className="btn btn-success">Agregar</button>
             </div>
         </div>
         <div className={`container-fluid text-light ${style.grillaMain}`}>

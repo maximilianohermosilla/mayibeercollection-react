@@ -26,7 +26,7 @@ export default function AdministracionPaises() {
                 <h3 className="title text-warning px-3"><IoEarthOutline className="text-info mx-2"></IoEarthOutline> Países</h3>
             </div>
             <div className={style.divButtonAdd}>
-                <button type="button" className="btn btn-success"><IoAddCircleOutline></IoAddCircleOutline> Agregar</button>
+                <button type="button" className="btn btn-success">Agregar</button>
             </div>
         </div>
         <div className={`container-fluid text-light ${style.grillaMain}`}>
