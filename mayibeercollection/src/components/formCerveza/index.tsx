@@ -114,7 +114,7 @@ export default function FormCerveza({ data, agregarCerveza, uploadImage, closeMo
                     <div className="col-12 mb-2">
                         <div className="form-group">
                             <label htmlFor="formFile" className="form-label mt-4">Foto</label>
-                            <input className="form-control" type="file" id="formFile" onChange={handleChange}/>
+                            <input className="form-control bg-dark text-light" type="file" id="formFile" onChange={handleChange}/>
                         </div>
                     </div>                
                     <div className="col-6">

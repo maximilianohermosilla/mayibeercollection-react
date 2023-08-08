@@ -17,9 +17,9 @@ export default function ModalBootstrap({data, showModal}: ModalCervezaProps) {
 
   return (    
     <>
-      <Button variant="primary" onClick={handleShow}>
+      {/* <Button variant="primary" onClick={handleShow}>
         Abrir Modal
-      </Button>
+      </Button> */}
 
       <Modal show={show} onHide={handleClose}{...data}
       size="lg">

@@ -28,7 +28,7 @@ function App() {
         <Route path="/login" element={<Login></Login>}></Route>
         <Route path="/cervezas" element={<CervezasPage></CervezasPage>}></Route>
         <Route element={<ProtectedRoute isAllowed={!!usuario}/>}>
-          <Route path="/administracion" element={<AdministracionPage></AdministracionPage>}></Route>     
+          {/* <Route path="/administracion" element={<AdministracionPage></AdministracionPage>}></Route>      */}
           <Route path="/administracion/paises" element={<AdministracionPaisesPage></AdministracionPaisesPage>}></Route>
           <Route path="/administracion/ciudades" element={<AdministracionCiudadesPage></AdministracionCiudadesPage>}></Route>
           <Route path="/administracion/marcas" element={<AdministracionMarcasPage></AdministracionMarcasPage>}></Route>
@@ -37,6 +37,7 @@ function App() {
           <Route path="/administracion/configuracion" element={<AdministracionConfiguracionPage></AdministracionConfiguracionPage>}></Route>
         </Route>
         <Route element={<ProtectedRoute isAllowed={!!usuario && usuario.perfil == "Administrador"}/>}>
+          <Route path="/administracion" element={<AdministracionPage></AdministracionPage>}></Route>     
           <Route path="/reportes" element={<ReportesPage></ReportesPage>}></Route>          
         </Route>
         {/* <Route path="/administracion" element={

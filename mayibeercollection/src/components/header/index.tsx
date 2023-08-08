@@ -7,9 +7,9 @@ interface HeaderProps {
 }
 
 export default function Header({ isLogged, isAdmin }: HeaderProps) {
-    return (<nav className={`navbar navbar-expand-lg bg-dark ${style.navbars}`} data-bs-theme="dark">
+    return (<nav className={`navbar navbar-expand-lg bg-primary ${style.navbars}`} data-bs-theme="dark">
         <div className="container-fluid">
-            <a className="navbar-brand bg-success px-3 rounded-1 text-light" href="#">MayiBeerCollection</a>
+            <a className="navbar-brand bg-success px-3 rounded-1 text-light" href="/inicio">MayiBeerCollection</a>
             <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
                 <span className="navbar-toggler-icon"></span>
             </button>
@@ -41,9 +41,9 @@ export default function Header({ isLogged, isAdmin }: HeaderProps) {
                     <li className={`nav-item px-1 ${style.label}`}>
                         <a className="nav-link" href="/cervezas"><IoBeerOutline></IoBeerOutline> Cervezas</a>
                     </li>
-                    <li className={`nav-item px-1 ${style.label}`}>
+                    {isAdmin ? <li className={`nav-item px-1 ${style.label}`}>
                         <a className="nav-link" href="/busqueda"><IoSearchSharp></IoSearchSharp> Búsqueda</a>
-                    </li>
+                    </li> : ''}
                     <li className={`nav-item px-1 ${style.label}`}>
                         <a className="nav-link" href="/reportes"><IoBarChartOutline></IoBarChartOutline> Reportes</a>
                     </li>                  
