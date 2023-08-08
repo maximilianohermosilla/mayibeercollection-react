@@ -6,10 +6,13 @@ import style from "./style.module.css";
 import SelectListaEstilos from "../select/selectListaEstilos";
 import SelectListaCiudades from "../select/selectListaCiudades";
 import { SelectOption } from "../../interfaces/selectOption";
+import { postImage } from "../../services/apiImage";
 
 interface FormCervezaProps {
     data?: Cerveza;
     agregarCerveza: any;
+    uploadImage: any;
+    closeModal: any;
 }
 
 type HandleInputChange = ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>;
@@ -31,30 +34,18 @@ const initialForm = {
     imagen: "",
 }
 
-export default function FormCerveza({ data, agregarCerveza }: FormCervezaProps) {    
+export default function FormCerveza({ data, agregarCerveza, uploadImage, closeModal }: FormCervezaProps) {    
     //console.log(data)
     const [cerveza, setCerveza] = useState(initialForm)
     const [idMarca, setMarca] = useState<any>(data?.idMarca)
     const [idEstilo, setEstilo] = useState<any>(data?.idEstilo)
     const [idCiudad, setCiudad] = useState<any>(data?.idCiudad)
-
+    const [file, setFile] = useState<any>();
+    const [fileInput, setFileInput] = useState<any>();
+    
     const handleInputChange = ({target: {name, value}}: HandleInputChange) => {    
        setCerveza({...cerveza, [name]: value});
-    }
-
-    const handleNuevaCerveza = async (e: FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        let cerv = structuredClone(cerveza);
-        cerv.idMarca = idMarca;
-        cerv.idEstilo = idEstilo;
-        cerv.idCiudad = idCiudad;
-        //console.log(idMarca, idEstilo, idCiudad)
-        await agregarCerveza(cerv);
-        setCerveza(cerv);
-        // setMarca(0)
-        // setEstilo(0)
-        // setCiudad(0)
-    }
+    }  
 
     initialForm.id = data?.id!;
     initialForm.nombre = data?.nombre!;
@@ -69,6 +60,7 @@ export default function FormCerveza({ data, agregarCerveza }: FormCervezaProps) 
     initialForm.marca = data?.marca!;
     initialForm.estilo = data?.estilo!;
     initialForm.ciudad = data?.ciudad!; 
+
     useEffect(() => {
         setCerveza(initialForm);
     }, [])
@@ -85,10 +77,46 @@ export default function FormCerveza({ data, agregarCerveza }: FormCervezaProps) 
         setCiudad(event?.value);
     }
 
+    async function handleChange(e: any) {       
+        const target= e.target as HTMLInputElement;
+        const file: File = (target.files as FileList)[0];
+        
+        setFile(URL.createObjectURL(e.target.files[0]));
+        uploadImage(URL.createObjectURL(e.target.files[0]));
+        setFileInput(file)
+    }
+
+    const handleNuevaCerveza = async (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+
+        let cerv = structuredClone(cerveza);
+        cerv.idMarca = idMarca;
+        cerv.idEstilo = idEstilo;
+        cerv.idCiudad = idCiudad;
+        
+        if(fileInput){
+            console.log("Nueva foto")
+            const formData = new FormData();   
+            formData.append('file', fileInput);        
+            let response = await postImage(formData, 'nuevo');
+            cerv.imagen = response?.response;
+        }    
+        
+        await agregarCerveza(cerv);
+        setCerveza(cerv);
+        closeModal();
+    }
+
     return (
         <div>
             <form onSubmit={handleNuevaCerveza}>
-                <div className="row">                    
+                <div className="row">    
+                    <div className="col-12 mb-2">
+                        <div className="form-group">
+                            <label htmlFor="formFile" className="form-label mt-4">Foto</label>
+                            <input className="form-control" type="file" id="formFile" onChange={handleChange}/>
+                        </div>
+                    </div>                
                     <div className="col-6">
                         <label>Nombre</label>    
                         <input type="text" placeholder="Nombre..." name="nombre" className="form-control rounded-0" value={cerveza?.nombre || ""} onChange={handleInputChange} />
@@ -123,8 +151,8 @@ export default function FormCerveza({ data, agregarCerveza }: FormCervezaProps) 
                         <textarea placeholder="Observaciones..." name="observaciones" className="form-control rounded-0" value={cerveza?.observaciones || ""} onChange={handleInputChange} />
                     </div>
 
-                    <div className="col-12">
-                        <button className="btn btn-success" type="submit"><IoSaveOutline></IoSaveOutline> Guardar</button>
+                    <div className="col-12 d-flex flex-row-reverse">
+                        <button className="btn btn-success mt-4" type="submit"><IoSaveOutline></IoSaveOutline> Guardar</button>
                     </div>
                 </div>
             </form>

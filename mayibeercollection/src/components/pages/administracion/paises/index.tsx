@@ -3,7 +3,7 @@ import { Pais } from "../../../../interfaces/pais";
 import { getPaises } from "../../../../services/apiPais";
 import style from './style.module.css'
 import Card from "../../../card";
-import { IoAddCircleOutline } from "react-icons/io5";
+import { IoAddCircleOutline , IoBriefcaseOutline, IoEarthOutline } from "react-icons/io5";
 
 export default function AdministracionPaises() {
     const [paises, setPaises] = useState<Pais[]>([]);
@@ -22,11 +22,11 @@ export default function AdministracionPaises() {
     return (<div>
         <div className={style.divTitle}>
             <div>
-                <h1 className="title text-light px-3 pt-1 mb-0">Administración</h1>
-                <h3 className="title text-warning px-3">Países</h3>
+                <h1 className="title text-light px-3 pt-1 mb-0"><IoBriefcaseOutline className="text-success"></IoBriefcaseOutline> Administración</h1>
+                <h3 className="title text-warning px-3"><IoEarthOutline className="text-info mx-2"></IoEarthOutline> Países</h3>
             </div>
             <div className={style.divButtonAdd}>
-                <button type="button" className="btn btn-success"><IoAddCircleOutline></IoAddCircleOutline> Agregar Páis</button>
+                <button type="button" className="btn btn-success"><IoAddCircleOutline></IoAddCircleOutline> Agregar</button>
             </div>
         </div>
         <div className={`container-fluid text-light ${style.grillaMain}`}>

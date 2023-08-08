@@ -1,14 +1,14 @@
-import { useEffect, useState } from "react";
-import { Cerveza } from "../../../interfaces/cerveza";
-import { getCervezas } from "../../../services/apiCerveza";
-import { IoAddCircleOutline, IoBeerOutline } from "react-icons/io5";
-import CardCerveza from "../../cardCerveza";
 import style from './style.module.css'
+import CardCerveza from "../../cardCerveza";
 import ModalCervezaABM from "../../modalCervezaABM";
 import SelectListaPaises from "../../select/selectListaPaises";
 import SelectListaCiudades from "../../select/selectListaCiudades";
 import SelectListaMarcas from "../../select/selectListaMarcas";
 import SelectListaEstilos from "../../select/selectListaEstilos";
+import { useEffect, useState } from "react";
+import { Cerveza } from "../../../interfaces/cerveza";
+import { getCervezas } from "../../../services/apiCerveza";
+import { IoAddCircleOutline, IoBeerOutline } from "react-icons/io5";
 import { SelectOption } from "../../../interfaces/selectOption";
 import { Filter } from "../../../interfaces/filter";
 
@@ -20,7 +20,7 @@ export default function Cervezas() {
     let isFilter = true;
 
     const fetchCervezas = async () => {
-        let listaCervezas: Cerveza[] = await getCervezas(filter.idMarca! || '0', filter.idEstilo! || '0', filter.idCiudad! || '0', filter.idPais! || '0', false);
+        let listaCervezas: Cerveza[] = await getCervezas(filter.idMarca! || '0', filter.idEstilo! || '0', filter.idCiudad! || '0', filter.idPais! || '0', true);
         await setCervezas(listaCervezas);
     }
 
@@ -29,13 +29,14 @@ export default function Cervezas() {
     }, []);
 
     const agregarCerveza = (nuevaCerveza: Cerveza) => {
-        setCervezas([...cervezas, nuevaCerveza]);
+        console.log(nuevaCerveza);
+        setCerveza(nuevaCerveza)
+        //window.location.reload();  
+        //setCervezas([...cervezas, nuevaCerveza]);
     }
 
-    const setearCerveza = (cerv: Cerveza) => {
-        console.log(cerv);
-        setCerveza(cerv)
-        window.location.reload();
+    const uploadImage = (url: string) => {
+       console.log(url);
     }
 
     const agregarNuevaCerveza = async () => {
@@ -71,7 +72,7 @@ export default function Cervezas() {
         await fetchCervezas();
     }
 
-    const renderCervezas = () => cervezas?.map((v, i) => <CardCerveza data={v} key={i} agregarCerveza={setearCerveza}></CardCerveza>)
+    const renderCervezas = () => cervezas?.map((v, i) => <CardCerveza data={v} key={i} agregarCerveza={agregarCerveza} uploadImage={uploadImage}></CardCerveza>)
 
     return (
     <div>
@@ -80,9 +81,9 @@ export default function Cervezas() {
                 <h1 className="title text-light px-3 py-1 mt-2"><IoBeerOutline className="text-warning"></IoBeerOutline> Cervezas</h1>
             </div>
             <div className={style.divButtonAdd}>
-                <button type="button" id="btnAgregarCerveza" className="btn btn-success"
+                <button type="button" id="btnAgregarCerveza" className={`btn btn-success ${style.label}`}
                             data-bs-toggle="modal" data-bs-target="#modalCervezaABM"
-                            onClick={agregarNuevaCerveza}><IoAddCircleOutline></IoAddCircleOutline> Agregar Cerveza</button>
+                            onClick={agregarNuevaCerveza}><IoAddCircleOutline></IoAddCircleOutline> Nueva Cerveza</button>
             </div>
         </div>
         
@@ -111,10 +112,8 @@ export default function Cervezas() {
          <div className="container-fluid text-center w-100">
             <h3 className="text-light">Sin resultados</h3>
         </div>}
-
-        {/* <ModalCerveza data={cerveza}></ModalCerveza>
-        {cerveza? <ModalCervezaABM data={cerveza} agregarCerveza={agregarCerveza}></ModalCervezaABM> : ''} */}
-        <ModalCervezaABM data={undefined} agregarCerveza={agregarCerveza} setearCerveza={setearCerveza}></ModalCervezaABM>     
+        
+        <ModalCervezaABM data={undefined} agregarCerveza={agregarCerveza} uploadImage={uploadImage}></ModalCervezaABM>     
     </div>
     )
 }

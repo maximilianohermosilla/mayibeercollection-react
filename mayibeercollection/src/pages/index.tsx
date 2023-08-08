@@ -1,13 +1,14 @@
-import ModalBootstrap from "../components/modal"
 import AdministracionCervezas from "../components/pages/administracion/cervezas"
 import AdministracionCiudades from "../components/pages/administracion/ciudades"
+import AdministracionConfiguracion from "../components/pages/administracion/configuracion"
 import AdministracionEstilos from "../components/pages/administracion/estilos"
 import AdministracionMarcas from "../components/pages/administracion/marcas"
 import AdministracionPaises from "../components/pages/administracion/paises"
 import Cervezas from "../components/pages/cervezas"
-import Reportes from "../components/reportes"
+import Reportes from "../components/pages/reportes"
+import HomepageInicio from "../components/pages/homepage"
 
-export const LandingPage = () => <ModalBootstrap data={undefined} showModal={false}></ModalBootstrap>
+export const HomepagePage = () => <HomepageInicio></HomepageInicio>
 
 export const CervezasPage = () => <Cervezas></Cervezas>
 
@@ -24,3 +25,5 @@ export const AdministracionEstilosPage = () => <AdministracionEstilos></Administ
 export const AdministracionCiudadesPage = () => <AdministracionCiudades></AdministracionCiudades>
 
 export const AdministracionCervezasPage = () => <AdministracionCervezas></AdministracionCervezas>
+
+export const AdministracionConfiguracionPage = () => <AdministracionConfiguracion></AdministracionConfiguracion>

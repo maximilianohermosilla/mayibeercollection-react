@@ -3,7 +3,7 @@ import { Cerveza } from "../../../../interfaces/cerveza";
 import { getCervezas } from "../../../../services/apiCerveza";
 import style from './style.module.css'
 import Card from "../../../card";
-import { IoAddCircleOutline } from "react-icons/io5";
+import { IoAddCircleOutline, IoBriefcaseOutline, IoBeerOutline } from "react-icons/io5";
 
 export default function AdministracionCervezas() {
     const [Cervezas, setCervezas] = useState<Cerveza[]>([]);
@@ -22,11 +22,11 @@ export default function AdministracionCervezas() {
     return (<div>
         <div className={style.divTitle}>
             <div>
-                <h1 className="title text-light px-3 pt-1 mb-0">Administración</h1>
-                <h3 className="title text-warning px-3">Cervezas</h3>
+                <h1 className="title text-light px-3 pt-1 mb-0"><IoBriefcaseOutline className="text-info"></IoBriefcaseOutline> Administración</h1>
+                <h3 className="title text-warning px-3"><IoBeerOutline className="text-warning mx-2"></IoBeerOutline> Cervezas</h3>
             </div>
             <div className={style.divButtonAdd}>
-                <button type="button" className="btn btn-success"><IoAddCircleOutline></IoAddCircleOutline> Agregar Cerveza</button>
+                <button type="button" className="btn btn-success"><IoAddCircleOutline></IoAddCircleOutline> Agregar</button>
             </div>
         </div>
         <div className={`container-fluid text-light ${style.grillaMain}`}>

@@ -4,20 +4,23 @@ import { useState } from "react";
 import { Cerveza } from "../../interfaces/cerveza";
 import { getCervezaById } from "../../services/apiCerveza";
 import { Modal } from "react-bootstrap";
-import { IoBagHandleOutline, IoBeakerOutline, IoBeerOutline, IoBusinessOutline, IoEarthOutline, IoExitOutline, IoInformationCircleOutline, IoListOutline, IoPintOutline, IoRoseOutline, IoWaterOutline } from "react-icons/io5";
+import { IoBagHandleOutline, IoBeakerOutline, IoBeerOutline, IoBusinessOutline, IoEarthOutline, IoExitOutline, IoInformationCircleOutline, 
+    IoListOutline, IoPintOutline, IoRoseOutline, IoWaterOutline } from "react-icons/io5";
 import FormCerveza from "../formCerveza";
 
 interface CardCervezaProps {
     data: Cerveza;
-    agregarCerveza: any
+    agregarCerveza: any;
+    uploadImage: any;
 }
 
-export default function CardCerveza({ data, agregarCerveza }: CardCervezaProps) {
+export default function CardCerveza({ data, agregarCerveza, uploadImage }: CardCervezaProps) {
     const [cerveza, setCerveza] = useState<Cerveza>(data);
     const [clicked, setClicked] = useState<boolean>(false);
     const [clickedEdit, setClickedEdit] = useState<boolean>(false);
     const [show, setShow] = useState<boolean>(false);
     const [showEdit, setShowEdit] = useState<boolean>(false);
+    const [file, setFile] = useState<any>(data?.imagen);
     
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -43,6 +46,10 @@ export default function CardCerveza({ data, agregarCerveza }: CardCervezaProps) 
     const closeAll = async () => {
         myClickEditCancel();
         handleClose();
+    }
+   
+    const updateImage = (fileUploaded: any) => {
+        setFile(fileUploaded);
     }
 
     return <div className={`bg-primary text-light ${style.cardCerveza}`}>
@@ -72,7 +79,7 @@ export default function CardCerveza({ data, agregarCerveza }: CardCervezaProps) 
                   <div className="modal-body">
                       <div className="row">
                           <div className="col-12 col-sm-6 h-100 py-3">
-                              <img className="img-modal" src={cerveza?.imagen} alt={cerveza?.nombre} width="100%" min-height="50vh" onClick={handleShow}/>
+                              <img className="img-modal" src={file} alt={cerveza?.nombre} width="100%" min-height="50vh" onClick={handleShow}/>
                           </div>
                           <div className="col-12 col-sm-6 text-left min-vh-90">
                               <h3 className="border border-secondary text-center my-3 bg-dark">Detalle</h3>
@@ -109,11 +116,11 @@ export default function CardCerveza({ data, agregarCerveza }: CardCervezaProps) 
                   <div className="modal-body">
                         <div className="row">
                             <div className="col-12 col-sm-6 h-100 py-3">
-                                <img className="img-modal" src={cerveza?.imagen} alt={cerveza?.nombre} width="100%" min-height="50vh" onClick={handleShow} />
+                                <img className="img-modal" src={file} alt={cerveza?.nombre} width="100%" min-height="50vh" onClick={handleShow} />
                             </div>
                             <div className="col-12 col-sm-6 text-left min-vh-90">
                                 <h3 className="border border-secondary text-center my-3 bg-dark">Editar</h3>
-                                {cerveza ? <FormCerveza data={cerveza} agregarCerveza={agregarCerveza}></FormCerveza> : ''}
+                                {cerveza ? <FormCerveza data={cerveza} agregarCerveza={agregarCerveza} uploadImage={updateImage} closeModal={myClickEditCancel}></FormCerveza> : ''}
                             </div>
                         </div>
                   </div>
@@ -123,7 +130,5 @@ export default function CardCerveza({ data, agregarCerveza }: CardCervezaProps) 
               </Modal.Footer>
             </Modal>
         : ''}
-        
-        {/* {cerveza? <ModalCervezaABM data={cerveza} agregarCerveza={agregarCerveza}></ModalCervezaABM> : ''} */}
     </div>    
 }

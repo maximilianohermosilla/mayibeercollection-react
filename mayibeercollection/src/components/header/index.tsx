@@ -16,7 +16,7 @@ export default function Header({ isLogged, isAdmin }: HeaderProps) {
             <div className="collapse navbar-collapse" id="navbarColor03">
                 <ul className="navbar-nav me-auto">
                     <li className={`nav-item px-1 ${style.label}`} >
-                        <a className={`nav-link active ${style.label}`} href="/landing"><IoHomeOutline></IoHomeOutline> Inicio
+                        <a className={`nav-link active ${style.label}`} href="/inicio"><IoHomeOutline></IoHomeOutline> Inicio
                             <span className="visually-hidden">(current)</span>
                         </a>
                     </li>
@@ -24,13 +24,13 @@ export default function Header({ isLogged, isAdmin }: HeaderProps) {
                         <a className="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
                             <IoBriefcaseOutline></IoBriefcaseOutline> Administración</a>
                         <div className="dropdown-menu">
-                            <a className="dropdown-item" href="/administracion/cervezas"><IoBeerOutline></IoBeerOutline> Cervezas</a>
+                            {/* <a className="dropdown-item" href="/administracion/cervezas"><IoBeerOutline></IoBeerOutline> Cervezas</a> */}
                             <a className="dropdown-item" href="/administracion/marcas"><IoBagHandleOutline></IoBagHandleOutline> Marcas</a>
                             <a className="dropdown-item" href="/administracion/estilos"><IoPintOutline></IoPintOutline> Estilos</a>
                             <a className="dropdown-item" href="/administracion/ciudades"><IoBusinessOutline></IoBusinessOutline> Ciudades</a>
                             <a className="dropdown-item" href="/administracion/paises"><IoEarthOutline></IoEarthOutline> Países</a>
                             <div className="dropdown-divider"></div>
-                            <a className="dropdown-item" href="/"><IoSettingsOutline></IoSettingsOutline> Configuración</a>
+                            <a className="dropdown-item" href="/administracion/configuracion"><IoSettingsOutline></IoSettingsOutline> Configuración</a>
                         </div>
                     </li>: ''}
 
