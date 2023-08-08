@@ -20,14 +20,10 @@ export default function SelectListaMarcas({ selectedOption, onChangeSelect, isFi
           lista.unshift({ id: 0, nombre: 'Todas las marcas'});
         }
         setMarcas(lista);
-        //console.log("fetch")
         setMarca({ value: selectedOption?.id || '0', label: selectedOption?.nombre || 'Selecccionar...'});        
     }
 
     useEffect(() => {
-        if (selectedOption == undefined){
-          setMarca({ value: '0', label: 'Selecccionar...'}); 
-        }
         setMarca({ value: selectedOption?.id || '0', label: selectedOption?.nombre || 'Selecccionar...'});        
         fetchMarcas();
     }, []);

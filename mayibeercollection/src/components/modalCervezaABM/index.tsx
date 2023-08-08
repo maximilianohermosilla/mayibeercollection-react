@@ -15,7 +15,7 @@ export default function ModalCervezaABM({ data, agregarCerveza, setearCerveza }:
         <div className="modal-dialog modal-lg" role="document">
             <div className="modal-content  bg-primary text-light">
                 <div className="modal-header border-bottom border-secondary">
-                    <h5 className="modal-title text-center text-success w-100"><IoBeerOutline className="text-warning"></IoBeerOutline> {data?.nombre}</h5>
+                    <h5 className="modal-title text-center text-success w-100"><IoBeerOutline className="text-warning"></IoBeerOutline> Nueva cerveza</h5>
                     <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true"></span>
                     </button>
@@ -29,8 +29,8 @@ export default function ModalCervezaABM({ data, agregarCerveza, setearCerveza }:
                                 currentTarget.src=imagen;}} /> 
                         </div>
                         <div className="col-12 col-sm-6  text-left">
-                            <h3 className="border border-secondary text-center my-3 bg-dark">Editar</h3>
-                            {data? <FormCerveza data={data} agregarCerveza={agregarCerveza}></FormCerveza>: ''}
+                            <h3 className="border border-secondary text-center my-3 bg-dark">Nueva cerveza</h3>
+                            <FormCerveza data={data} agregarCerveza={setearCerveza}></FormCerveza>
                         </div>
                     </div>                    
                 </div>

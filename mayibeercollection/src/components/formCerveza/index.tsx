@@ -34,17 +34,29 @@ const initialForm = {
 export default function FormCerveza({ data, agregarCerveza }: FormCervezaProps) {    
     //console.log(data)
     const [cerveza, setCerveza] = useState(initialForm)
+    const [idMarca, setMarca] = useState<any>(data?.idMarca)
+    const [idEstilo, setEstilo] = useState<any>(data?.idEstilo)
+    const [idCiudad, setCiudad] = useState<any>(data?.idCiudad)
 
     const handleInputChange = ({target: {name, value}}: HandleInputChange) => {    
        setCerveza({...cerveza, [name]: value});
     }
 
-    const handleNuevaCerveza = (e: FormEvent<HTMLFormElement>) => {
+    const handleNuevaCerveza = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        agregarCerveza(cerveza);
-        setCerveza(initialForm);
+        let cerv = structuredClone(cerveza);
+        cerv.idMarca = idMarca;
+        cerv.idEstilo = idEstilo;
+        cerv.idCiudad = idCiudad;
+        //console.log(idMarca, idEstilo, idCiudad)
+        await agregarCerveza(cerv);
+        setCerveza(cerv);
+        // setMarca(0)
+        // setEstilo(0)
+        // setCiudad(0)
     }
-    
+
+    initialForm.id = data?.id!;
     initialForm.nombre = data?.nombre!;
     initialForm.ibu = data?.ibu!;
     initialForm.alcohol = data?.alcohol!;
@@ -56,18 +68,22 @@ export default function FormCerveza({ data, agregarCerveza }: FormCervezaProps) 
     initialForm.imagen = data?.imagen!;
     initialForm.marca = data?.marca!;
     initialForm.estilo = data?.estilo!;
-    initialForm.ciudad = data?.ciudad!;
-
-    useEffect(() => {    
+    initialForm.ciudad = data?.ciudad!; 
+    useEffect(() => {
         setCerveza(initialForm);
     }, [])
 
-    const onChangeSelect = (event: SelectOption)  => {
-        console.log(event)
-        console.log(event?.value)
+    const onChangeSelectMarca = (event: SelectOption)  => {
+        setMarca(event?.value);
     }
     
-    //console.log(initialForm)
+    const onChangeSelectEstilo = (event: SelectOption)  => {
+        setEstilo(event?.value);
+    }
+    
+    const onChangeSelectCiudad = (event: SelectOption)  => {
+        setCiudad(event?.value);
+    }
 
     return (
         <div>
@@ -79,17 +95,17 @@ export default function FormCerveza({ data, agregarCerveza }: FormCervezaProps) 
 
                         <label>Marca</label>                        
                         <div className={`text-primary ${style.divSelect}`}>
-                            <SelectListaMarcas selectedOption={cerveza?.marca} onChangeSelect={onChangeSelect} isFilter={false}></SelectListaMarcas>
+                            <SelectListaMarcas selectedOption={cerveza?.marca} onChangeSelect={onChangeSelectMarca} isFilter={false}></SelectListaMarcas>
                         </div>
 
                         <label>Estilo</label>   
                         <div className={`text-primary ${style.divSelect}`}>
-                            <SelectListaEstilos selectedOption={cerveza?.estilo} onChangeSelect={onChangeSelect} isFilter={false}></SelectListaEstilos>
+                            <SelectListaEstilos selectedOption={cerveza?.estilo} onChangeSelect={onChangeSelectEstilo} isFilter={false}></SelectListaEstilos>
                         </div>   
                         
                         <label>Ciudad</label>   
                         <div className={`text-primary ${style.divSelect}`}>
-                            <SelectListaCiudades selectedOption={cerveza?.ciudad} onChangeSelect={onChangeSelect} isFilter={false}></SelectListaCiudades>
+                            <SelectListaCiudades selectedOption={cerveza?.ciudad} onChangeSelect={onChangeSelectCiudad} isFilter={false}></SelectListaCiudades>
                         </div>  
                     </div>
 
