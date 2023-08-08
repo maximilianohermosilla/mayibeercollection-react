@@ -1,3 +1,4 @@
+import ModalBootstrap from "../components/modal"
 import AdministracionCervezas from "../components/pages/administracion/cervezas"
 import AdministracionCiudades from "../components/pages/administracion/ciudades"
 import AdministracionEstilos from "../components/pages/administracion/estilos"
@@ -6,7 +7,7 @@ import AdministracionPaises from "../components/pages/administracion/paises"
 import Cervezas from "../components/pages/cervezas"
 import Reportes from "../components/reportes"
 
-export const LandingPage = () => <h2 className="text-light">Landing Page (Public)</h2>
+export const LandingPage = () => <ModalBootstrap data={undefined} showModal={false}></ModalBootstrap>
 
 export const CervezasPage = () => <Cervezas></Cervezas>
 

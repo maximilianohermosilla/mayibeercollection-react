@@ -6,7 +6,7 @@
     border-radius: 16px;
     overflow: hidden;
     box-shadow: 2px 2px 4px rgba(0,0,0,0.7);
-    text-align: center;    
+    text-align: center;
 }
 
 .cardCerveza_header{
@@ -34,10 +34,6 @@
     flex-direction: column;
     align-items: center;
     padding: 10px;
-    background: -webkit-linear-gradient(180deg , #499e15, #005333,#9e7d10);
-    height: 100%;
-    width: 100%;
-    font-size: 1rem;
 }
 
 .carCerveza_body_subtitle{
@@ -50,17 +46,8 @@
     grid-template-columns: 1fr;
 }
 
-.fade{
-    padding-left: 0;
-}
-
 @media screen and (max-width: 480px){    
     .cardCerveza_body, .cardCerveza_footer{
         padding: 5px 2px;
-    }
-
-    .img-modal{
-        max-height: 200px;
-        height: 200px;
     }
 }

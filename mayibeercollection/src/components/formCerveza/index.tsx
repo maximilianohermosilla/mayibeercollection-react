@@ -61,6 +61,8 @@ export default function FormCerveza({ data, agregarCerveza }: FormCervezaProps) 
         setCerveza(initialForm);
     }, [])
     
+    //console.log(initialForm)
+
     return (
         <div>
             <form onSubmit={handleNuevaCerveza}>

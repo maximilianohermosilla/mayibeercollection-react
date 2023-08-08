@@ -1,5 +1,5 @@
-import { IoBagHandleOutline, IoBeerOutline, IoExitOutline, IoListOutline, IoSearchSharp, IoBarChartOutline,
-     IoBriefcaseOutline, IoHomeOutline, IoPintOutline, IoEarthOutline, IoBusinessOutline, IoSettingsOutline, IoBeakerOutline, IoWaterOutline, IoRoseOutline, IoInformationCircleOutline 
+import { IoBagHandleOutline, IoBeerOutline, IoExitOutline, IoListOutline, IoPintOutline, IoEarthOutline, IoBusinessOutline,
+     IoBeakerOutline, IoWaterOutline, IoRoseOutline, IoInformationCircleOutline 
 } from "react-icons/io5";
 import { Cerveza } from "../../interfaces/cerveza";
 
@@ -8,6 +8,7 @@ interface ModalCervezaProps {
 }
 
 export default function ModalCerveza({ data }: ModalCervezaProps) {    
+    console.log(data)
     return <div className="modal" id="modalCerveza" role="dialog" aria-labelledby="modalCervezaTitle" aria-hidden="true">
         <div className="modal-dialog modal-lg" role="document">
             <div className="modal-content  bg-primary text-light">

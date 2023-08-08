@@ -5,11 +5,11 @@ import imageDefault from "../../img/notfound.png";
 
 interface ModalCervezaProps {
     data?: Cerveza;
-    agregarCerveza: any
+    agregarCerveza: any;
+    setearCerveza: any;
 }
 
-export default function ModalCervezaABM({ data, agregarCerveza }: ModalCervezaProps) {
-    console.log(data)
+export default function ModalCervezaABM({ data, agregarCerveza, setearCerveza }: ModalCervezaProps) {    
     let imagen = data?.imagen == undefined? imageDefault: data?.imagen;
     return <div className="modal" id="modalCervezaABM" role="dialog" aria-labelledby="modalCervezaTitle" aria-hidden="true">
         <div className="modal-dialog modal-lg" role="document">
