@@ -3,7 +3,7 @@ import { enviroment } from "../interfaces/enviroment";
 
 const BASE_URL: string = enviroment.urlBase() + "Cerveza";
 
-export const getCervezas = async (IdMarca: number, IdEstilo: number, IdCiudad: number, IdPais: number, fullresponse: boolean): Promise<Cerveza[]> => {
+export const getCervezas = async (IdMarca: string, IdEstilo: string, IdCiudad: string, IdPais: string, fullresponse: boolean): Promise<Cerveza[]> => {
     const url = `${BASE_URL}?IdMarca=${IdMarca}&IdEstilo=${IdEstilo}&IdCiudad=${IdCiudad}&IdPais=${IdPais}&fullresponse=${fullresponse}`;
     const response = await fetch(url);
     if (!response.ok){

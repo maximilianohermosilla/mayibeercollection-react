@@ -9,19 +9,20 @@ import SelectListaPaises from "../../select/selectListaPaises";
 import SelectListaCiudades from "../../select/selectListaCiudades";
 import SelectListaMarcas from "../../select/selectListaMarcas";
 import SelectListaEstilos from "../../select/selectListaEstilos";
+import { SelectOption } from "../../../interfaces/selectOption";
+import { Filter } from "../../../interfaces/filter";
 
 export default function Cervezas() {
     const [cervezas, setCervezas] = useState<Cerveza[]>([]);
     const [cerveza, setCerveza] = useState<Cerveza>();
-    
-    const IdMarca: number = 0;
-    const IdEstilo: number = 0;
-    const IdCiudad: number = 0;
-    const IdPais: number = 0;
-    const fullresponse: boolean = true;
+    const [filter, setFilters] = useState<Filter>({});   
+
+    let isFilter = true;
 
     const fetchCervezas = async () => {
-        let listaCervezas: Cerveza[] = await getCervezas(IdMarca, IdEstilo, IdCiudad, IdPais, fullresponse);
+        //let listaCervezas: Cerveza[] = await getCervezas(IdMarca, IdEstilo, IdCiudad, IdPais, fullresponse);
+        console.log(filter);
+        let listaCervezas: Cerveza[] = await getCervezas(filter.idMarca! || '0', filter.idEstilo! || '0', filter.idCiudad! || '0', filter.idPais! || '0', false);
         await setCervezas(listaCervezas);
     }
 
@@ -43,7 +44,37 @@ export default function Cervezas() {
         await setCerveza(emptyCerveza);
     }
 
-    const renderCervezas = () => cervezas?.map((v, i) => <CardCerveza data={v} key={i} agregarCerveza={agregarCerveza}></CardCerveza>)
+    const onChangeSelectMarca = async (event: SelectOption)  => {
+        let filtro: Filter = filter;
+        filtro.idMarca = event?.value;
+        setFilters(filtro);
+        await fetchCervezas();
+    }
+
+    const onChangeSelectEstilo = async (event: SelectOption)  => {      
+        let filtro: Filter = filter;
+        filtro.idEstilo = event?.value;
+        setFilters(filtro);
+        await fetchCervezas();
+    }
+
+    const onChangeSelectPais = async (event: SelectOption)  => {
+        let filtro: Filter = filter;
+        filtro.idPais = event?.value;
+        setFilters(filtro);
+        await fetchCervezas();
+    }
+
+    const onChangeSelectCiudad = async (event: SelectOption)  => {
+        // console.log(event)
+        // console.log(event?.value)
+        let filtro: Filter = filter;
+        filtro.idCiudad = event?.value;
+        setFilters(filtro);
+        await fetchCervezas();
+    }
+
+    const renderCervezas = () => cervezas?.map((v, i) => <CardCerveza data={v} key={i} agregarCerveza={setearCerveza}></CardCerveza>)
 
     return (<div>
         <div className={style.divTitle}>
@@ -58,20 +89,20 @@ export default function Cervezas() {
         </div>
         <div className="row container-fluid my-4 ml-1">
             <div className="col-6 col-sm-3">
-                <label className="text-light">Marca</label>
-                <SelectListaMarcas selectedOption={undefined}></SelectListaMarcas>                
+                <label className={`text-light ${style.label}`}>Marca</label>
+                <SelectListaMarcas selectedOption={undefined} onChangeSelect={onChangeSelectMarca} isFilter={isFilter}></SelectListaMarcas>                
             </div>
             <div className="col-6 col-sm-3">
-                <label className="text-light">Estilo</label>
-                <SelectListaEstilos selectedOption={undefined}></SelectListaEstilos>
+                <label className={`text-light ${style.label}`}>Estilo</label>
+                <SelectListaEstilos selectedOption={undefined} onChangeSelect={onChangeSelectEstilo} isFilter={isFilter}></SelectListaEstilos>
             </div>
             <div className="col-6 col-sm-3">
-                <label className="text-light">País</label>
-                <SelectListaPaises selectedOption={undefined}></SelectListaPaises>
+                <label className={`text-light ${style.label}`}>País</label>
+                <SelectListaPaises selectedOption={undefined} onChangeSelect={onChangeSelectPais} isFilter={isFilter}></SelectListaPaises>
             </div>
             <div className="col-6 col-sm-3">
-                <label className="text-light">Ciudad</label>
-                <SelectListaCiudades selectedOption={undefined}></SelectListaCiudades>
+                <label className={`text-light ${style.label}`}>Ciudad</label>
+                <SelectListaCiudades selectedOption={undefined} onChangeSelect={onChangeSelectCiudad} isFilter={isFilter}></SelectListaCiudades>
             </div>
         </div>
         <div className={`container-fluid text-light ${style.cervezasMain}`}>

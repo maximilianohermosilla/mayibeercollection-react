@@ -5,6 +5,7 @@ import SelectListaMarcas from "../select/selectListaMarcas";
 import style from "./style.module.css";
 import SelectListaEstilos from "../select/selectListaEstilos";
 import SelectListaCiudades from "../select/selectListaCiudades";
+import { SelectOption } from "../../interfaces/selectOption";
 
 interface FormCervezaProps {
     data?: Cerveza;
@@ -60,6 +61,11 @@ export default function FormCerveza({ data, agregarCerveza }: FormCervezaProps) 
     useEffect(() => {    
         setCerveza(initialForm);
     }, [])
+
+    const onChangeSelect = (event: SelectOption)  => {
+        console.log(event)
+        console.log(event?.value)
+    }
     
     //console.log(initialForm)
 
@@ -73,17 +79,17 @@ export default function FormCerveza({ data, agregarCerveza }: FormCervezaProps) 
 
                         <label>Marca</label>                        
                         <div className={`text-primary ${style.divSelect}`}>
-                            <SelectListaMarcas selectedOption={cerveza?.marca}></SelectListaMarcas>
+                            <SelectListaMarcas selectedOption={cerveza?.marca} onChangeSelect={onChangeSelect} isFilter={false}></SelectListaMarcas>
                         </div>
 
                         <label>Estilo</label>   
                         <div className={`text-primary ${style.divSelect}`}>
-                            <SelectListaEstilos selectedOption={cerveza?.estilo}></SelectListaEstilos>
+                            <SelectListaEstilos selectedOption={cerveza?.estilo} onChangeSelect={onChangeSelect} isFilter={false}></SelectListaEstilos>
                         </div>   
                         
                         <label>Ciudad</label>   
                         <div className={`text-primary ${style.divSelect}`}>
-                            <SelectListaCiudades selectedOption={cerveza?.ciudad}></SelectListaCiudades>
+                            <SelectListaCiudades selectedOption={cerveza?.ciudad} onChangeSelect={onChangeSelect} isFilter={false}></SelectListaCiudades>
                         </div>  
                     </div>
 

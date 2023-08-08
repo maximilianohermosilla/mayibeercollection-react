@@ -15,12 +15,12 @@ export default function Header({ isLogged, isAdmin }: HeaderProps) {
             </button>
             <div className="collapse navbar-collapse" id="navbarColor03">
                 <ul className="navbar-nav me-auto">
-                    <li className="nav-item px-1">
-                        <a className="nav-link active" href="/landing"><IoHomeOutline></IoHomeOutline> Inicio
+                    <li className={`nav-item px-1 ${style.label}`} >
+                        <a className={`nav-link active ${style.label}`} href="/landing"><IoHomeOutline></IoHomeOutline> Inicio
                             <span className="visually-hidden">(current)</span>
                         </a>
                     </li>
-                    {isLogged ? <li className="nav-item dropdown px-1">
+                    {isLogged ? <li className={`nav-item dropdown px-1 ${style.label}`}>
                         <a className="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
                             <IoBriefcaseOutline></IoBriefcaseOutline> Administración</a>
                         <div className="dropdown-menu">
@@ -34,23 +34,23 @@ export default function Header({ isLogged, isAdmin }: HeaderProps) {
                         </div>
                     </li>: ''}
 
-                    {isAdmin ? <li className="nav-item">
+                    {isAdmin ? <li className={`nav-item ${style.label}`} >
                         <a className="nav-link" href="/administracion">Administración</a>
                     </li> : ''}
 
-                    <li className="nav-item px-1">
+                    <li className={`nav-item px-1 ${style.label}`}>
                         <a className="nav-link" href="/cervezas"><IoBeerOutline></IoBeerOutline> Cervezas</a>
                     </li>
-                    <li className="nav-item px-1">
+                    <li className={`nav-item px-1 ${style.label}`}>
                         <a className="nav-link" href="/busqueda"><IoSearchSharp></IoSearchSharp> Búsqueda</a>
                     </li>
-                    <li className="nav-item px-1">
+                    <li className={`nav-item px-1 ${style.label}`}>
                         <a className="nav-link" href="/reportes"><IoBarChartOutline></IoBarChartOutline> Reportes</a>
                     </li>                  
                 </ul>
                 <form className="d-flex">
                     <input className="form-control me-sm-2" type="search" placeholder="Buscar" />
-                    <button className="btn btn-success my-2 my-sm-0" type="submit">Buscar</button>
+                    <button className={`btn btn-success my-2 my-sm-0 ${style.label}`} type="submit">Buscar</button>
                 </form>
             </div>
         </div>

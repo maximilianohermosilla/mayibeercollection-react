@@ -19,6 +19,10 @@
     padding-right: 1rem;
 }
 
+.label{
+    font-family: Neucha,-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+}
+
 @media screen and (max-width: 800px){    
     .cervezasMain{
         grid-template-columns: repeat(3, 1fr);        

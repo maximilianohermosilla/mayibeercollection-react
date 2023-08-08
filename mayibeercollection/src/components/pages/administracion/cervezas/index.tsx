@@ -9,7 +9,7 @@ export default function AdministracionCervezas() {
     const [Cervezas, setCervezas] = useState<Cerveza[]>([]);
 
     const fetchCervezas = async () => {
-        let lista: Cerveza[] = await getCervezas(0,0,0,0,false);
+        let lista: Cerveza[] = await getCervezas('0','0','0','0',false);
         setCervezas(lista);
     }
 
