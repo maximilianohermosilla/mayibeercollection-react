@@ -1,4 +1,5 @@
 import { Cerveza } from "../interfaces/cerveza";
+import { CervezaRequest } from "../interfaces/cervezaRequest";
 import { enviroment } from "../interfaces/enviroment";
 
 const BASE_URL: string = enviroment.urlBase() + "Cerveza";
@@ -21,4 +22,52 @@ export const getCervezaById = async (id: number, fullresponse: boolean): Promise
     }
     const data: Cerveza = await response.json();
     return data;
+}
+
+export const insertCerveza = async (data: Cerveza): Promise<any> => {
+    const url = `${BASE_URL}`;
+    console.log(JSON.stringify(data) )
+    let result;
+    const response = await fetch(`${BASE_URL}`, {
+        method: "POST",
+        headers:{
+            "Content-Type": "application/json",
+            //"Authorization": `Bearer ${JwtToken}`
+        },
+        body: JSON.stringify(data) 
+    })
+    
+    if (!response.ok){
+        throw new Error(response.statusText);        
+    }
+
+    result = await response.json();
+    console.log(result)
+    if(response.ok && response.status == 201){
+        return result;
+    }
+}
+
+export const updateCerveza = async (data: any): Promise<any> => {
+    const url = `${BASE_URL}`;
+    console.log(JSON.stringify(data) )
+    let result;
+    const response = await fetch(`${BASE_URL}?id=${data?.id}`, {
+        method: "PUT",
+        headers:{
+            "Content-Type": "application/json",
+            //"Authorization": `Bearer ${JwtToken}`
+        },
+        body: JSON.stringify(data) 
+    })
+    
+    if (!response.ok){
+        throw new Error(response.statusText);        
+    }
+
+    result = await response.json();
+    console.log(result)
+    if(response.ok && response.status == 201){
+        return result;
+    }
 }

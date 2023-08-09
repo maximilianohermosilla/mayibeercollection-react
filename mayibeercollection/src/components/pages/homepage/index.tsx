@@ -1,11 +1,9 @@
 import { ReporteResponse } from "../../../interfaces/reporteCervezas";
 import { useEffect, useState } from "react";
-import ModalBootstrap from "../../modal";
 import style from "./style.module.css";
 import imageBeers from "../../../img/beers.jpg";
 import imageCollection from "../../../img/collection.webp";
-import { IoBeerOutline, IoSearchSharp, IoBarChartOutline, IoBriefcaseOutline, 
-    IoHomeOutline, IoBagHandleOutline, IoPintOutline, IoEarthOutline, IoBusinessOutline, IoSettingsOutline  } from "react-icons/io5";
+import { IoBeerOutline, IoBagHandleOutline, IoPintOutline, IoEarthOutline  } from "react-icons/io5";
 import { getReporte } from "../../../services/apiReporte";
 
 export default function HomepageInicio() {
@@ -45,8 +43,7 @@ export default function HomepageInicio() {
             <div className="d-none d-sm-block col-sm-1"><IoBeerOutline id="paises" className={`text-warning w-100 ${style.iconoHome}`} size={80} onClick={navigate}></IoBeerOutline>    </div>
             <div className="col-12 col-sm-10">
                 <h1 className="title text-light px-3 pt-1 mb-0">MayiBeerCollection</h1>
-                <h3 className="title text-warning px-3">Bienvenido/a</h3>
-                <ModalBootstrap data={undefined} showModal={false}></ModalBootstrap>
+                <h3 className="title text-warning px-3">Bienvenido/a</h3>                
             </div>           
             <div className="d-none d-sm-block col-sm-1"><IoBeerOutline id="paises" className={`text-warning w-100 ${style.iconoHome}`} size={80} onClick={navigate}></IoBeerOutline>    </div>
         </div>  
@@ -66,25 +63,49 @@ export default function HomepageInicio() {
             <div className="col-6 col-sm-3 d-flex justify-content-center">
                 <div className="row">
                     <IoBeerOutline id="cervezas" className={`text-warning w-100 ${style.iconoHome}`} size={200} onClick={navigate}></IoBeerOutline>                     
-                    <h4 className="text-light text-center mt-2">{reporte?.length} Cervezas</h4>
+                    {/* <h4 className="text-light text-center mt-2">{reporte?.length} Cervezas</h4> */}
+                    <ul className="list-group mt-2">
+                        <li className="list-group-item list-group-item-light d-flex justify-content-between align-items-center">
+                            Cervezas
+                            <span className="badge bg-warning text-dark rounded-pill">{reporte?.length}</span>
+                        </li>
+                    </ul>
                 </div>
             </div>          
             <div className="col-6 col-sm-3 d-flex justify-content-center">
                 <div className="row">
                     <IoEarthOutline id="paises" className={`text-info w-100 ${style.iconoHome}`} size={200} onClick={navigate}></IoEarthOutline>                     
-                    <h4 className="text-light text-center mt-2">{cantidadPaises?.length} Paises</h4>
+                    {/* <h4 className="text-light text-center mt-2">{cantidadPaises?.length} Paises</h4> */}
+                    <ul className="list-group mt-2">
+                        <li className="list-group-item list-group-item-light d-flex justify-content-between align-items-center">
+                        Paises
+                            <span className="badge bg-info text-light rounded-pill">{cantidadPaises?.length}</span>
+                        </li>
+                    </ul>
                 </div>
             </div>
             <div className="col-6 col-sm-3 d-flex justify-content-center">
                 <div className="row">
                     <IoBagHandleOutline id="marcas" className={`text-danger w-100 ${style.iconoHome}`} size={200} onClick={navigate}></IoBagHandleOutline>                     
-                    <h4 className="text-light text-center mt-2">{cantidadMarcas?.length} Marcas</h4>
+                    {/* <h4 className="text-light text-center mt-2">{cantidadMarcas?.length} Marcas</h4> */}
+                    <ul className="list-group mt-2">
+                        <li className="list-group-item list-group-item-light d-flex justify-content-between align-items-center">
+                        Marcas
+                            <span className="badge bg-danger text-light rounded-pill">{cantidadMarcas?.length}</span>
+                        </li>
+                    </ul>
                 </div>
             </div>
             <div className="col-6 col-sm-3 d-flex justify-content-center">
                 <div className="row">
                     <IoPintOutline id="estilos" className={`text-success w-100 ${style.iconoHome}`} size={200} onClick={navigate}></IoPintOutline>                     
-                    <h4 className="text-light text-center mt-2">{cantidadEstilos?.length} Estilos</h4>
+                    {/* <h4 className="text-light text-center mt-2">{cantidadEstilos?.length} Estilos</h4> */}
+                    <ul className="list-group mt-2">
+                        <li className="list-group-item list-group-item-light d-flex justify-content-between align-items-center">
+                        Estilos
+                            <span className="badge bg-success text-light rounded-pill">{cantidadEstilos?.length}</span>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>    

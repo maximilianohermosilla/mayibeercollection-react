@@ -8,6 +8,7 @@ import { Estilo } from "../../../../interfaces/estilo";
 
 export default function AdministracionEstilos() {
     const [estilos, setEstilos] = useState<Estilo[]>([]);
+    const [show, setShow] = useState<boolean>(false); 
 
     const fetchEstilos = async () => {
         let lista: Estilo[] = await getEstilos();
@@ -18,7 +19,12 @@ export default function AdministracionEstilos() {
         fetchEstilos();
     }, []);
     
-    const renderEstilos = () => estilos?.map((v, i) => <Card data={v} key={i} height={70}></Card>)
+    const renderEstilos = () => estilos?.map((v, i) => <Card data={v} key={i} show={showModal} height={70}></Card>)
+
+    
+    const showModal = () => {
+        setShow(true);
+    }
 
     return (<div>
         <div className={style.divTitle}>

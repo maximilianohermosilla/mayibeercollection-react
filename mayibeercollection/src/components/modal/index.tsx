@@ -1,9 +1,11 @@
-import { useEffect, useImperativeHandle, useRef, useState } from 'react';
+import style from "./style.module.css";
+import { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { Cerveza } from '../../interfaces/cerveza';
 import { IoExitOutline, IoCheckmarkCircleOutline } from 'react-icons/io5';
 import React from 'react';
+import FormGeneral from '../formGeneral';
 
 interface ModalCervezaProps {
     data?: Cerveza;
@@ -11,15 +13,39 @@ interface ModalCervezaProps {
 }
 export default function ModalBootstrap({data, showModal}: ModalCervezaProps) {
   const [show, setShow] = useState(showModal);
+  const [file, setFile] = useState<any>();
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  const nuevoElemento = (elemento: any) => {
+    console.log(elemento)
+  }
+
+  const closeModal = () => {
+    let buttonClose = document.getElementById("btnCancelar");
+    buttonClose?.click();
+  }
+
+  const updateImage = (fileUploaded: any) => {
+      setFile(fileUploaded);
+  }
+
+  useEffect(() => {
+    if (showModal){
+      handleShow();
+    }
+  }, [])
 
   return (    
     <>
       {/* <Button variant="primary" onClick={handleShow}>
         Abrir Modal
       </Button> */}
+
+      <div className={style.divButtonAdd}>
+          <button type="button" className="btn btn-success" onClick={handleShow} >Agregar</button>
+      </div>
 
       <Modal show={show} onHide={handleClose}{...data}
       size="lg">
@@ -31,7 +57,7 @@ export default function ModalBootstrap({data, showModal}: ModalCervezaProps) {
         <Modal.Body className="bg-primary text-light border-bottom border-secondary">
             <div className="modal-body">
                 <div className="row">
-
+                    <FormGeneral data={data} nuevoElemento={nuevoElemento} uploadImage={updateImage} closeModal={closeModal} ></FormGeneral>
                 </div>
             </div>
         </Modal.Body>

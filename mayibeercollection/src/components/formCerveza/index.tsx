@@ -91,35 +91,16 @@ export default function FormCerveza({ data, agregarCerveza, uploadImage, closeMo
 
     const handleNuevaCerveza = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-
-        let cerv = structuredClone(cerveza);
-        cerv.idMarca = idMarca;
-        cerv.idEstilo = idEstilo;
-        cerv.idCiudad = idCiudad;
-        
-        if(fileInput){
-            console.log("Nueva foto")
-            const formData = new FormData();   
-            formData.append('file', fileInput);        
-            let response = await postImage(formData, cerveza?.nombre || '');
-            cerv.imagen = response?.response;
-        }    
-        
-        await agregarCerveza(cerv);
-        setCerveza(cerv);
-        closeModal();
     }
 
     const onSubmit = async (data: any) => {
-        console.log(data);
-
+        //console.log(data);
         let cerv = structuredClone(cerveza);
         cerv.idMarca = idMarca;
         cerv.idEstilo = idEstilo;
         cerv.idCiudad = idCiudad;
         
-        if(fileInput){
-            console.log("Nueva foto")
+        if(fileInput){            
             const formData = new FormData();   
             formData.append('file', fileInput);        
             let response = await postImage(formData, cerveza?.nombre || '');
@@ -130,7 +111,7 @@ export default function FormCerveza({ data, agregarCerveza, uploadImage, closeMo
         setCerveza(cerv);
         closeModal();
     }
-    
+        
     return (
         <div>
             <form onSubmit={handleSubmit(onSubmit)}>
@@ -142,13 +123,13 @@ export default function FormCerveza({ data, agregarCerveza, uploadImage, closeMo
                         </div>
                     </div>                
                     <div className="col-6">
-                        <label>Nombre</label>    
+                        <label>* Nombre</label>    
                         <input type="text" placeholder="Nombre..." className="form-control rounded-0" 
                             {...register('nombre', {required: true})}
                             value={cerveza?.nombre || ""} onChange={handleInputChange} />
                         {errors.nombre?.type === "required" && <p className="text-danger">Campo requerido</p>}
 
-                        <label>Marca</label>                        
+                        <label>* Marca</label>                        
                         <div className={`text-primary ${style.divSelect}`}>
                             <SelectListaMarcas 
                                 selectedOption={cerveza?.marca} 
@@ -156,7 +137,7 @@ export default function FormCerveza({ data, agregarCerveza, uploadImage, closeMo
                                 isFilter={false}></SelectListaMarcas>
                         </div>
 
-                        <label>Estilo</label>   
+                        <label>* Estilo</label>   
                         <div className={`text-primary ${style.divSelect}`}>
                             <SelectListaEstilos 
                                 selectedOption={cerveza?.estilo} 
@@ -164,7 +145,7 @@ export default function FormCerveza({ data, agregarCerveza, uploadImage, closeMo
                                 isFilter={false}></SelectListaEstilos>
                         </div>   
                         
-                        <label>Ciudad</label>   
+                        <label>* Ciudad</label>   
                         <div className={`text-primary ${style.divSelect}`}>
                             <SelectListaCiudades 
                                 selectedOption={cerveza?.ciudad} 
@@ -182,12 +163,16 @@ export default function FormCerveza({ data, agregarCerveza, uploadImage, closeMo
                         {errors.alcohol?.type === "min" && <p className="text-danger">El valor debe ser mayor o igual a 0</p>}
 
                         <label>IBU</label>   
-                        <input type="number" placeholder="IBU..." name="ibu" className="form-control rounded-0" 
+                        <input type="number" placeholder="IBU..." className="form-control rounded-0" 
+                            {...register('ibu', {min: 0})}
                             value={cerveza?.ibu || ""} onChange={handleInputChange}/>
+                        {errors.alcohol?.type === "min" && <p className="text-danger">El valor debe ser mayor o igual a 0</p>}
                         
                         <label>Contenido</label>
-                        <input type="number" placeholder="Contenido..." name="contenido" className="form-control rounded-0" 
-                            value={cerveza?.contenido || ""} onChange={handleInputChange}/>
+                        <input type="number" placeholder="Contenido..." className="form-control rounded-0" 
+                             {...register('contenido', {min: 0})}
+                            value={cerveza?.contenido || ""} onChange={handleInputChange}/>                            
+                        {errors.alcohol?.type === "min" && <p className="text-danger">El valor debe ser mayor o igual a 0</p>}
 
                         <label>Observaciones</label>
                         <textarea placeholder="Observaciones..." name="observaciones" className="form-control rounded-0" 
@@ -195,7 +180,7 @@ export default function FormCerveza({ data, agregarCerveza, uploadImage, closeMo
                     </div>
 
                     <div className="col-12 d-flex flex-row-reverse">
-                        <button className="btn btn-success mt-4" type="submit"><IoSaveOutline></IoSaveOutline> Guardar</button>
+                        <button className="btn btn-success mt-4" type="submit" disabled={!idMarca || !idEstilo || !idCiudad}><IoSaveOutline></IoSaveOutline> Guardar</button>
                     </div>
                 </div>
             </form>

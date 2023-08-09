@@ -7,6 +7,7 @@ import { IoAddCircleOutline , IoBriefcaseOutline, IoEarthOutline } from "react-i
 
 export default function AdministracionPaises() {
     const [paises, setPaises] = useState<Pais[]>([]);
+    const [show, setShow] = useState<boolean>(false); 
 
     const fetchPaises = async () => {
         let lista: Pais[] = await getPaises();
@@ -17,7 +18,11 @@ export default function AdministracionPaises() {
         fetchPaises();
     }, []);
     console.log(paises);
-    const renderPaises = () => paises?.map((v, i) => <Card data={v} key={i} height={50}></Card>)
+    const renderPaises = () => paises?.map((v, i) => <Card data={v} key={i} show={showModal} height={50}></Card>)
+    
+    const showModal = () => {
+        setShow(true);
+    }
 
     return (<div>
         <div className={style.divTitle}>

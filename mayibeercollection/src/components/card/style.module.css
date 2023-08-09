@@ -44,6 +44,11 @@
     grid-template-columns: 1fr;
 }
 
+.card:hover .card_header{
+    cursor: pointer;
+    opacity: 0.5;
+}
+
 @media screen and (max-width: 480px){    
     .card_body, .card_footer{
         padding: 5px 2px;

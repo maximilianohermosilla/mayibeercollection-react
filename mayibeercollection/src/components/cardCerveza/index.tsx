@@ -7,6 +7,7 @@ import { Modal } from "react-bootstrap";
 import { IoBagHandleOutline, IoBeakerOutline, IoBeerOutline, IoBusinessOutline, IoEarthOutline, IoExitOutline, IoInformationCircleOutline, 
     IoListOutline, IoPintOutline, IoRoseOutline, IoWaterOutline } from "react-icons/io5";
 import FormCerveza from "../formCerveza";
+import imageDefault from "../../img/notfound.png";
 
 interface CardCervezaProps {
     data: Cerveza;
@@ -61,8 +62,7 @@ export default function CardCerveza({ data, agregarCerveza, uploadImage }: CardC
         setNewFile(false);
     }
    
-    const updateImage = (fileUploaded: any) => {
-        console.log(fileUploaded)
+    const updateImage = (fileUploaded: any) => {        
         setFile(fileUploaded);
         setNewFile(true);
     }
@@ -70,8 +70,12 @@ export default function CardCerveza({ data, agregarCerveza, uploadImage }: CardC
     return <div className={`bg-primary text-light ${style.cardCerveza}`}>
         <div className={style.cardCerveza_header}>
             <div className={style.cardCerveza_img}>
-                <img className="imagenCerveza" id={data.id?.toString()} src={data.imagen} alt={cerveza?.nombre} onClick={myClickHandler}
-                        height="100%" width="100%"/>
+                <img className="imagenCerveza" id={data.id?.toString()}
+                    src={data.imagen || imageDefault} alt={cerveza?.nombre} onClick={myClickHandler}
+                    onError={({ currentTarget }) => {
+                    currentTarget.onerror = null;
+                    currentTarget.src=imageDefault;}}
+                    height={220} width="100%" max-width={150}/>
             </div>
         </div>
         <div className={style.cardCerveza_body}>
@@ -94,7 +98,12 @@ export default function CardCerveza({ data, agregarCerveza, uploadImage }: CardC
                   <div className="modal-body">
                       <div className="row">
                           <div className="col-12 col-sm-6 h-100 py-3">
-                              <img className="img-modal" src={file} alt={cerveza?.nombre} width="100%" min-height="50vh" onClick={handleShow}/>
+                              <img className="img-modal" src={file || imageDefault} alt={cerveza?.nombre}
+                               width="100%" min-height="50vh"
+                               onError={({ currentTarget }) => {
+                                currentTarget.onerror = null;
+                                currentTarget.src=imageDefault;}}
+                               onClick={handleShow}/>
                           </div>
                           <div className="col-12 col-sm-6 text-left min-vh-90">
                               <h3 className="border border-secondary text-center my-3 bg-dark">Detalle</h3>
@@ -131,7 +140,12 @@ export default function CardCerveza({ data, agregarCerveza, uploadImage }: CardC
                   <div className="modal-body">
                         <div className="row">
                             <div className="col-12 col-sm-6 h-100 py-3">
-                                <img className="img-modal" src={file} alt={cerveza?.nombre} width="100%" min-height="50vh" onClick={handleShow} />
+                                <img className="img-modal" src={file || imageDefault} alt={cerveza?.nombre}
+                                    width="100%" min-height="50vh" onClick={handleShow} 
+                                    onError={({ currentTarget }) => {
+                                        currentTarget.onerror = null;
+                                        currentTarget.src=imageDefault;}}
+                                />
                             </div>
                             <div className="col-12 col-sm-6 text-left min-vh-90">
                                 <h3 className="border border-secondary text-center my-3 bg-dark">Editar</h3>

@@ -7,6 +7,7 @@ import { IoAddCircleOutline, IoBriefcaseOutline, IoBusinessOutline } from "react
 
 export default function AdministracionCiudades() {
     const [Ciudades, setCiudades] = useState<Ciudad[]>([]);
+    const [show, setShow] = useState<boolean>(false); 
 
     const fetchCiudades = async () => {
         let lista: Ciudad[] = await getCiudades();
@@ -19,9 +20,12 @@ export default function AdministracionCiudades() {
         fetchCiudades();
     }, []);
     console.log(Ciudades);
-    const renderCiudades = () => Ciudades?.map((v, i) => <Card data={v} key={i} height={50}></Card>)
+    const renderCiudades = () => Ciudades?.map((v, i) => <Card data={v} key={i} show={showModal} height={50}></Card>)
 
     
+    const showModal = () => {
+        setShow(true);
+    }
 
     return (<div>
         <div className={style.divTitle}>

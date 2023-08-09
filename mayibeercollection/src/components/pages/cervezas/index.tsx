@@ -7,7 +7,7 @@ import SelectListaMarcas from "../../select/selectListaMarcas";
 import SelectListaEstilos from "../../select/selectListaEstilos";
 import { useEffect, useState } from "react";
 import { Cerveza } from "../../../interfaces/cerveza";
-import { getCervezas } from "../../../services/apiCerveza";
+import { getCervezas, insertCerveza, updateCerveza } from "../../../services/apiCerveza";
 import { IoAddCircleOutline, IoBeerOutline } from "react-icons/io5";
 import { SelectOption } from "../../../interfaces/selectOption";
 import { Filter } from "../../../interfaces/filter";
@@ -20,23 +20,32 @@ export default function Cervezas() {
     const [filter, setFilters] = useState<Filter>({});   
     const [currentPage, setCurrentPage] = useState(1);
     const [beersPerPage, setBeersPerPage] = useState(10);
+    const [loading, setLoading] = useState(true);
 
     let isFilter = true;
 
     const fetchCervezas = async () => {
+        setLoading(true);
         let listaCervezas: Cerveza[] = await getCervezas(filter.idMarca! || '0', filter.idEstilo! || '0', filter.idCiudad! || '0', filter.idPais! || '0', true);
         await setCervezas(listaCervezas);
+        setLoading(false);
     }
 
     useEffect(() => {
         fetchCervezas();
     }, []);
 
-    const agregarCerveza = (nuevaCerveza: Cerveza) => {
-        console.log(nuevaCerveza);
-        //setCerveza(nuevaCerveza)
-        //window.location.reload();  
-        //setCervezas([...cervezas, nuevaCerveza]);
+    const agregarCerveza = async (nuevaCerveza: Cerveza) => {        
+        if(nuevaCerveza?.id! > 0){            
+            let result = await updateCerveza(nuevaCerveza);
+            fetchCervezas();
+        }
+        else{            
+            let result = await insertCerveza(nuevaCerveza);
+            fetchCervezas();
+            //window.location.reload();  
+            //setCervezas([...cervezas, nuevaCerveza]);
+        }     
     }
 
     const uploadImage = (url: string) => {
@@ -45,35 +54,37 @@ export default function Cervezas() {
 
     const agregarNuevaCerveza = async () => {
         const emptyCerveza = {} as Cerveza;
-        //await setCerveza(emptyCerveza);
     }
 
     const onChangeSelectMarca = async (event: SelectOption)  => {
         let filtro: Filter = filter;
         filtro.idMarca = event?.value;
-        setFilters(filtro);
-        await fetchCervezas();
+        onChangeSelectUpdate(filtro);
     }
 
     const onChangeSelectEstilo = async (event: SelectOption)  => {      
         let filtro: Filter = filter;
         filtro.idEstilo = event?.value;
-        setFilters(filtro);
-        await fetchCervezas();
+        onChangeSelectUpdate(filtro);
     }
 
     const onChangeSelectPais = async (event: SelectOption)  => {
         let filtro: Filter = filter;
         filtro.idPais = event?.value;
-        setFilters(filtro);
-        await fetchCervezas();
+        onChangeSelectUpdate(filtro);
     }
 
     const onChangeSelectCiudad = async (event: SelectOption)  => {
         let filtro: Filter = filter;
         filtro.idCiudad = event?.value;
+        onChangeSelectUpdate(filtro);
+    }
+
+    const onChangeSelectUpdate = async (filtro: Filter) => {
         setFilters(filtro);
         await fetchCervezas();
+        paginate(1);
+        setBeersPerPage(10);
     }
 
     
@@ -119,7 +130,7 @@ export default function Cervezas() {
             </div>
         </div>
 
-        {cervezas.length>0?
+        {cervezas.length>0 && !loading?
             <div>
                 <div className={`container-fluid text-light ${style.cervezasMain}`}>
                     {renderCervezas()}                

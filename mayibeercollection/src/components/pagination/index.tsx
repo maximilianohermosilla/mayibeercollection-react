@@ -8,7 +8,7 @@ interface PaginationProps{
 
 export default function Pagination({elementsPerPage, totalElements, paginate}: PaginationProps){
     const [paginationNumbers, setPagination] = useState<any[]>([]);
-    const pageNumbers: any[] = [];
+    let pageNumbers: any[] = [];
 
     for (let index = 1; index <= Math.ceil(totalElements.length / elementsPerPage); index++) {
         pageNumbers.push(index);        
@@ -23,7 +23,7 @@ export default function Pagination({elementsPerPage, totalElements, paginate}: P
             <ul className="pagination">
                 {paginationNumbers.map(number => 
                     <li key={number} className="page-item">
-                        <a href="#" onClick={() => paginate(number)} className="page-link">
+                        <a href="#" onClick={() => paginate(number)} className="page-link bg-secondary text-light">
                             {number}
                         </a>
                     </li>    

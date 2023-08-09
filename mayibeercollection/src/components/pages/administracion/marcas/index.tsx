@@ -3,10 +3,12 @@ import { Marca } from "../../../../interfaces/marca";
 import { getMarcas } from "../../../../services/apiMarca";
 import style from './style.module.css'
 import Card from "../../../card";
-import { IoAddCircleOutline, IoBriefcaseOutline, IoBagHandleOutline } from "react-icons/io5";
+import { IoBriefcaseOutline, IoBagHandleOutline } from "react-icons/io5";
+import ModalBootstrap from "../../../modal";
 
 export default function AdministracionMarcas() {
     const [Marcas, setMarcas] = useState<Marca[]>([]);
+    const [show, setShow] = useState<boolean>(false); 
 
     const fetchMarcas = async () => {
         let lista: Marca[] = await getMarcas();
@@ -16,8 +18,13 @@ export default function AdministracionMarcas() {
     useEffect(() => {
         fetchMarcas();
     }, []);
+
+    const showModal = (modal: boolean) => {
+        console.log(modal)
+        setShow(modal);
+    }
     
-    const renderMarcas = () => Marcas?.map((v, i) => <Card data={v} key={i} height={70}></Card>)
+    const renderMarcas = () => Marcas?.map((v, i) => <Card data={v} key={i} show={showModal} height={70}></Card>)
 
     return (<div>
         <div className={style.divTitle}>
@@ -25,9 +32,7 @@ export default function AdministracionMarcas() {
                 <h1 className="title text-light px-3 pt-1 mb-0"><IoBriefcaseOutline className="text-info"></IoBriefcaseOutline> Administración</h1>
                 <h3 className="title text-warning px-3"><IoBagHandleOutline className="text-danger mx-2"></IoBagHandleOutline> Marcas</h3>
             </div>
-            <div className={style.divButtonAdd}>
-                <button type="button" className="btn btn-success">Agregar</button>
-            </div>
+            <ModalBootstrap data={undefined} showModal={show}></ModalBootstrap>
         </div>
         <div className={`container-fluid text-light ${style.grillaMain}`}>
             {renderMarcas()}

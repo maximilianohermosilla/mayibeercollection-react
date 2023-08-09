@@ -7,6 +7,7 @@ import { IoAddCircleOutline, IoBriefcaseOutline, IoBeerOutline } from "react-ico
 
 export default function AdministracionCervezas() {
     const [Cervezas, setCervezas] = useState<Cerveza[]>([]);
+    const [show, setShow] = useState<boolean>(false); 
 
     const fetchCervezas = async () => {
         let lista: Cerveza[] = await getCervezas('0','0','0','0',false);
@@ -17,7 +18,11 @@ export default function AdministracionCervezas() {
         fetchCervezas();
     }, []);
     console.log(Cervezas);
-    const renderCervezas = () => Cervezas?.map((v, i) => <Card data={v} key={i} height={100}></Card>)
+    const renderCervezas = () => Cervezas?.map((v, i) => <Card data={v} key={i} show={showModal} height={100}></Card>)
+
+    const showModal = () => {
+        setShow(true);
+    }
 
     return (<div>
         <div className={style.divTitle}>
