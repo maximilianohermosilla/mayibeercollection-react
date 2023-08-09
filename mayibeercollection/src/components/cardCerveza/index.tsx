@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import style from "./style.module.css";
 import { useState } from "react";
 import { Cerveza } from "../../interfaces/cerveza";
@@ -14,13 +14,14 @@ interface CardCervezaProps {
     uploadImage: any;
 }
 
-export default function CardCerveza({ data, agregarCerveza, uploadImage }: CardCervezaProps) {
+export default function CardCerveza({ data, agregarCerveza, uploadImage }: CardCervezaProps) {    
     const [cerveza, setCerveza] = useState<Cerveza>(data);
     const [clicked, setClicked] = useState<boolean>(false);
     const [clickedEdit, setClickedEdit] = useState<boolean>(false);
     const [show, setShow] = useState<boolean>(false);
     const [showEdit, setShowEdit] = useState<boolean>(false);
     const [file, setFile] = useState<any>(data?.imagen);
+    const [newFile, setNewFile] = useState<boolean>(false);
     
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -31,6 +32,16 @@ export default function CardCerveza({ data, agregarCerveza, uploadImage }: CardC
         setClicked(true);
         setShow(true);
     }  
+
+    useEffect( () => {
+        setCerveza(data);
+        if(newFile){
+            setFile(file || data?.imagen);
+        }
+        else{
+            setFile(data?.imagen);
+        }
+    })
     
     const myClickEditHandler = async () => {        
         setClickedEdit(true);
@@ -41,15 +52,19 @@ export default function CardCerveza({ data, agregarCerveza, uploadImage }: CardC
         setShowEdit(false);
         setClicked(true);
         setShow(true);
+        setNewFile(false);
     } 
 
     const closeAll = async () => {
         myClickEditCancel();
         handleClose();
+        setNewFile(false);
     }
    
     const updateImage = (fileUploaded: any) => {
+        console.log(fileUploaded)
         setFile(fileUploaded);
+        setNewFile(true);
     }
 
     return <div className={`bg-primary text-light ${style.cardCerveza}`}>

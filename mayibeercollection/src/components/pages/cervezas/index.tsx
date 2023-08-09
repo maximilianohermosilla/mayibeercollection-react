@@ -11,11 +11,15 @@ import { getCervezas } from "../../../services/apiCerveza";
 import { IoAddCircleOutline, IoBeerOutline } from "react-icons/io5";
 import { SelectOption } from "../../../interfaces/selectOption";
 import { Filter } from "../../../interfaces/filter";
+import Pagination from "../../pagination";
 
 export default function Cervezas() {
     const [cervezas, setCervezas] = useState<Cerveza[]>([]);
-    const [cerveza, setCerveza] = useState<Cerveza>();
+    const [cervezasActuales, setCervezasActuales] = useState<Cerveza[]>([]);
+    // const [cerveza, setCerveza] = useState<Cerveza>();
     const [filter, setFilters] = useState<Filter>({});   
+    const [currentPage, setCurrentPage] = useState(1);
+    const [beersPerPage, setBeersPerPage] = useState(10);
 
     let isFilter = true;
 
@@ -30,7 +34,7 @@ export default function Cervezas() {
 
     const agregarCerveza = (nuevaCerveza: Cerveza) => {
         console.log(nuevaCerveza);
-        setCerveza(nuevaCerveza)
+        //setCerveza(nuevaCerveza)
         //window.location.reload();  
         //setCervezas([...cervezas, nuevaCerveza]);
     }
@@ -41,7 +45,7 @@ export default function Cervezas() {
 
     const agregarNuevaCerveza = async () => {
         const emptyCerveza = {} as Cerveza;
-        await setCerveza(emptyCerveza);
+        //await setCerveza(emptyCerveza);
     }
 
     const onChangeSelectMarca = async (event: SelectOption)  => {
@@ -72,8 +76,17 @@ export default function Cervezas() {
         await fetchCervezas();
     }
 
-    const renderCervezas = () => cervezas?.map((v, i) => <CardCerveza data={v} key={i} agregarCerveza={agregarCerveza} uploadImage={uploadImage}></CardCerveza>)
-
+    
+    const indexOfLastBeer = currentPage * beersPerPage;
+    const indexOfFirstBeer = indexOfLastBeer - beersPerPage;
+    const currentBeers = cervezas.slice(indexOfFirstBeer, indexOfLastBeer);
+    
+    const paginate = (pageNumber: number) => {
+        setCurrentPage(pageNumber);
+        setCervezasActuales(currentBeers);
+    }
+    
+    const renderCervezas = () => currentBeers?.map((v, i) => <CardCerveza data={v} key={i} agregarCerveza={agregarCerveza} uploadImage={uploadImage}></CardCerveza>)
     return (
     <div>
         <div className={style.divTitle}>
@@ -106,9 +119,15 @@ export default function Cervezas() {
             </div>
         </div>
 
-        {cervezas.length>0? <div className={`container-fluid text-light ${style.cervezasMain}`}>
-            {renderCervezas()}
-        </div>:
+        {cervezas.length>0?
+            <div>
+                <div className={`container-fluid text-light ${style.cervezasMain}`}>
+                    {renderCervezas()}                
+                </div>
+                <div className="container-fluid d-flex justify-content-center p-3 mt-2">
+                    <Pagination elementsPerPage={beersPerPage} totalElements={cervezas} paginate={paginate}></Pagination>
+                </div>
+            </div>:
          <div className="container-fluid text-center w-100">
             <h3 className="text-light">Sin resultados</h3>
         </div>}

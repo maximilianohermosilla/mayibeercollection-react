@@ -98,7 +98,7 @@ export default function FormCerveza({ data, agregarCerveza, uploadImage, closeMo
             console.log("Nueva foto")
             const formData = new FormData();   
             formData.append('file', fileInput);        
-            let response = await postImage(formData, 'nuevo');
+            let response = await postImage(formData, cerveza?.nombre || '');
             cerv.imagen = response?.response;
         }    
         
