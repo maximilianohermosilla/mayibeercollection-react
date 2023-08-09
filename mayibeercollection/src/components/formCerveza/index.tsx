@@ -7,6 +7,7 @@ import SelectListaEstilos from "../select/selectListaEstilos";
 import SelectListaCiudades from "../select/selectListaCiudades";
 import { SelectOption } from "../../interfaces/selectOption";
 import { postImage } from "../../services/apiImage";
+import { useForm } from "react-hook-form";
 
 interface FormCervezaProps {
     data?: Cerveza;
@@ -43,6 +44,8 @@ export default function FormCerveza({ data, agregarCerveza, uploadImage, closeMo
     const [file, setFile] = useState<any>();
     const [fileInput, setFileInput] = useState<any>();
     
+    const {register, formState: {errors},  handleSubmit } = useForm();
+
     const handleInputChange = ({target: {name, value}}: HandleInputChange) => {    
        setCerveza({...cerveza, [name]: value});
     }  
@@ -107,9 +110,30 @@ export default function FormCerveza({ data, agregarCerveza, uploadImage, closeMo
         closeModal();
     }
 
+    const onSubmit = async (data: any) => {
+        console.log(data);
+
+        let cerv = structuredClone(cerveza);
+        cerv.idMarca = idMarca;
+        cerv.idEstilo = idEstilo;
+        cerv.idCiudad = idCiudad;
+        
+        if(fileInput){
+            console.log("Nueva foto")
+            const formData = new FormData();   
+            formData.append('file', fileInput);        
+            let response = await postImage(formData, cerveza?.nombre || '');
+            cerv.imagen = response?.response;
+        }    
+        
+        await agregarCerveza(cerv);
+        setCerveza(cerv);
+        closeModal();
+    }
+    
     return (
         <div>
-            <form onSubmit={handleNuevaCerveza}>
+            <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="row">    
                     <div className="col-12 mb-2">
                         <div className="form-group">
@@ -119,36 +143,55 @@ export default function FormCerveza({ data, agregarCerveza, uploadImage, closeMo
                     </div>                
                     <div className="col-6">
                         <label>Nombre</label>    
-                        <input type="text" placeholder="Nombre..." name="nombre" className="form-control rounded-0" value={cerveza?.nombre || ""} onChange={handleInputChange} />
+                        <input type="text" placeholder="Nombre..." className="form-control rounded-0" 
+                            {...register('nombre', {required: true})}
+                            value={cerveza?.nombre || ""} onChange={handleInputChange} />
+                        {errors.nombre?.type === "required" && <p className="text-danger">Campo requerido</p>}
 
                         <label>Marca</label>                        
                         <div className={`text-primary ${style.divSelect}`}>
-                            <SelectListaMarcas selectedOption={cerveza?.marca} onChangeSelect={onChangeSelectMarca} isFilter={false}></SelectListaMarcas>
+                            <SelectListaMarcas 
+                                selectedOption={cerveza?.marca} 
+                                onChangeSelect={onChangeSelectMarca} 
+                                isFilter={false}></SelectListaMarcas>
                         </div>
 
                         <label>Estilo</label>   
                         <div className={`text-primary ${style.divSelect}`}>
-                            <SelectListaEstilos selectedOption={cerveza?.estilo} onChangeSelect={onChangeSelectEstilo} isFilter={false}></SelectListaEstilos>
+                            <SelectListaEstilos 
+                                selectedOption={cerveza?.estilo} 
+                                onChangeSelect={onChangeSelectEstilo} 
+                                isFilter={false}></SelectListaEstilos>
                         </div>   
                         
                         <label>Ciudad</label>   
                         <div className={`text-primary ${style.divSelect}`}>
-                            <SelectListaCiudades selectedOption={cerveza?.ciudad} onChangeSelect={onChangeSelectCiudad} isFilter={false}></SelectListaCiudades>
+                            <SelectListaCiudades 
+                                selectedOption={cerveza?.ciudad} 
+                                onChangeSelect={onChangeSelectCiudad} 
+                                isFilter={false}></SelectListaCiudades>
                         </div>  
                     </div>
 
                     <div className="col-6">                        
                         <label>Alcohol</label>   
-                        <input type="number" placeholder="Alcohol..." name="alcohol" className="form-control rounded-0" value={cerveza?.alcohol || ""} onChange={handleInputChange}/>
-                        
+                        <input type="number" placeholder="Alcohol..." className="form-control rounded-0" 
+                            {...register('alcohol', {max: 100, min: 0})}
+                            value={cerveza?.alcohol || ""} onChange={handleInputChange}/>
+                        {errors.alcohol?.type === "max" && <p className="text-danger">El valor debe ser inferior a 100</p>}
+                        {errors.alcohol?.type === "min" && <p className="text-danger">El valor debe ser mayor o igual a 0</p>}
+
                         <label>IBU</label>   
-                        <input type="number" placeholder="IBU..." name="ibu" className="form-control rounded-0" value={cerveza?.ibu || ""} onChange={handleInputChange}/>
+                        <input type="number" placeholder="IBU..." name="ibu" className="form-control rounded-0" 
+                            value={cerveza?.ibu || ""} onChange={handleInputChange}/>
                         
                         <label>Contenido</label>
-                        <input type="number" placeholder="Contenido..." name="contenido" className="form-control rounded-0" value={cerveza?.contenido || ""} onChange={handleInputChange}/>
+                        <input type="number" placeholder="Contenido..." name="contenido" className="form-control rounded-0" 
+                            value={cerveza?.contenido || ""} onChange={handleInputChange}/>
 
                         <label>Observaciones</label>
-                        <textarea placeholder="Observaciones..." name="observaciones" className="form-control rounded-0" value={cerveza?.observaciones || ""} onChange={handleInputChange} />
+                        <textarea placeholder="Observaciones..." name="observaciones" className="form-control rounded-0" 
+                            value={cerveza?.observaciones || ""} onChange={handleInputChange} />
                     </div>
 
                     <div className="col-12 d-flex flex-row-reverse">
