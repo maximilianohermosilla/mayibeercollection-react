@@ -37,6 +37,10 @@ export default function ModalBootstrap({data, showModal}: ModalCervezaProps) {
     }
   }, [])
 
+  // const toggleModalShow = () => {
+  //   toggleModal();
+  // }
+
   return (    
     <>
       {/* <Button variant="primary" onClick={handleShow}>

@@ -67,7 +67,7 @@ export const updateCerveza = async (data: any): Promise<any> => {
 
     result = await response.json();
     console.log(result)
-    if(response.ok && response.status == 201){
+    if(response.ok && response.status == 200){
         return result;
     }
 }
