@@ -8,10 +8,10 @@ import { getReporte } from "../../../services/apiReporte";
 
 export default function HomepageInicio() {
     const [reporte, setReporte] = useState<ReporteResponse[]>([]);
-    const [cantidadPaises, setPaises] = useState<any>();
-    const [cantidadMarcas, setMarcas] = useState<any>();
-    const [cantidadEstilos, setEstilos] = useState<any>();
-    const [cantidadCiudades, setCiudades] = useState<any>();
+    const [cantidadPaises, setPaises] = useState<any>(0);
+    const [cantidadMarcas, setMarcas] = useState<any>(0);
+    const [cantidadEstilos, setEstilos] = useState<any>(0);
+    const [cantidadCiudades, setCiudades] = useState<any>(0);
     
     const fetchReporte = async () => {
         let lista: ReporteResponse[] = await getReporte();

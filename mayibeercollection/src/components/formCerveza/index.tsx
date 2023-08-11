@@ -166,13 +166,13 @@ export default function FormCerveza({ data, agregarCerveza, uploadImage, closeMo
                         <input type="number" placeholder="IBU..." className="form-control rounded-0" 
                             {...register('ibu', {min: 0})}
                             value={cerveza?.ibu || ""} onChange={handleInputChange}/>
-                        {errors.alcohol?.type === "min" && <p className="text-danger">El valor debe ser mayor o igual a 0</p>}
+                        {errors.ibu?.type === "min" && <p className="text-danger">El valor debe ser mayor o igual a 0</p>}
                         
                         <label>Contenido</label>
                         <input type="number" placeholder="Contenido..." className="form-control rounded-0" 
                              {...register('contenido', {min: 0})}
                             value={cerveza?.contenido || ""} onChange={handleInputChange}/>                            
-                        {errors.alcohol?.type === "min" && <p className="text-danger">El valor debe ser mayor o igual a 0</p>}
+                        {errors.contenido?.type === "min" && <p className="text-danger">El valor debe ser mayor o igual a 0</p>}
 
                         <label>Observaciones</label>
                         <textarea placeholder="Observaciones..." name="observaciones" className="form-control rounded-0" 

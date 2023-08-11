@@ -6,21 +6,20 @@ import { Cerveza } from '../../interfaces/cerveza';
 import { IoExitOutline, IoCheckmarkCircleOutline } from 'react-icons/io5';
 import React from 'react';
 import FormGeneral from '../formGeneral';
+import { Tipo } from "../../interfaces/tipo";
 
 interface ModalCervezaProps {
-    data?: Cerveza;
+    data?: any;
     showModal: boolean;
+    tipo: Tipo;
+    nuevoElemento: any;
 }
-export default function ModalBootstrap({data, showModal}: ModalCervezaProps) {
+export default function ModalBootstrap({data, showModal, tipo, nuevoElemento}: ModalCervezaProps) {
   const [show, setShow] = useState(showModal);
   const [file, setFile] = useState<any>();
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
-  const nuevoElemento = (elemento: any) => {
-    console.log(elemento)
-  }
 
   const closeModal = () => {
     let buttonClose = document.getElementById("btnCancelar");
@@ -32,44 +31,37 @@ export default function ModalBootstrap({data, showModal}: ModalCervezaProps) {
   }
 
   useEffect(() => {
+    console.log(data)
     if (showModal){
       handleShow();
     }
   }, [])
-
-  // const toggleModalShow = () => {
-  //   toggleModal();
-  // }
-
+  
   return (    
-    <>
-      {/* <Button variant="primary" onClick={handleShow}>
-        Abrir Modal
-      </Button> */}
-
+    <>  
       <div className={style.divButtonAdd}>
           <button type="button" className="btn btn-success" onClick={handleShow} >Agregar</button>
       </div>
 
-      <Modal show={show} onHide={handleClose}{...data}
-      size="lg">
-        <Modal.Header closeButton className="bg-primary text-light rounded-0 border-bottom border-secondary">
-          <Modal.Title className="bg-primary text-light">
-          <h5 className="modal-title text-center text-success w-100">Modal</h5>
-          </Modal.Title>
-        </Modal.Header>
-        <Modal.Body className="bg-primary text-light border-bottom border-secondary">
+        <Modal show={show}
+          onHide={handleClose}
+          size="lg">
+          <Modal.Header closeButton className="bg-primary text-light rounded-0 border-bottom border-secondary">
+            <Modal.Title className="bg-primary text-light">
+              <h5 className="modal-title text-center text-success w-100">Modal</h5>
+            </Modal.Title>
+          </Modal.Header>
+          <Modal.Body className="bg-primary text-light border-bottom border-secondary">
             <div className="modal-body">
-                <div className="row">
-                    <FormGeneral data={data} nuevoElemento={nuevoElemento} uploadImage={updateImage} closeModal={closeModal} ></FormGeneral>
-                </div>
+              <div className="row">
+                <FormGeneral data={data} nuevoElemento={nuevoElemento} uploadImage={updateImage} closeModal={closeModal} tipo={tipo}></FormGeneral>
+              </div>
             </div>
-        </Modal.Body>
-        <Modal.Footer className="bg-primary text-light rounded-0">
-            <button type="button" className="btn btn-success" onClick={handleClose}><IoCheckmarkCircleOutline></IoCheckmarkCircleOutline> Confirmar</button>
-            <button type="button" className="btn btn-danger" onClick={handleClose}><IoExitOutline></IoExitOutline> Cerrar</button>
-        </Modal.Footer>
-      </Modal>
+          </Modal.Body>
+          <Modal.Footer className="bg-primary text-light rounded-0">
+            <button type="button" className="btn btn-danger" onClick={handleClose}><IoExitOutline></IoExitOutline> Cancelar</button>
+          </Modal.Footer>
+        </Modal>
     </>
   );
 }

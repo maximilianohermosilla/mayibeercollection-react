@@ -75,7 +75,7 @@ export default function CardCerveza({ data, agregarCerveza, uploadImage }: CardC
                     onError={({ currentTarget }) => {
                     currentTarget.onerror = null;
                     currentTarget.src=imageDefault;}}
-                    height={220} width="100%" max-width={150}/>
+                    height={230} width="100%"/>
             </div>
         </div>
         <div className={style.cardCerveza_body}>

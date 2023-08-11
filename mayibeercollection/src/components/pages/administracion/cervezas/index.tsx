@@ -4,6 +4,7 @@ import { getCervezas } from "../../../../services/apiCerveza";
 import style from './style.module.css'
 import Card from "../../../card";
 import { IoAddCircleOutline, IoBriefcaseOutline, IoBeerOutline } from "react-icons/io5";
+import { Tipo } from "../../../../interfaces/tipo";
 
 export default function AdministracionCervezas() {
     const [Cervezas, setCervezas] = useState<Cerveza[]>([]);
@@ -14,11 +15,15 @@ export default function AdministracionCervezas() {
         setCervezas(lista);
     }
 
+    const nuevoElemento = (elemento: any) => {
+        console.log(elemento);
+    }
+
     useEffect(() => {
         fetchCervezas();
     }, []);
     console.log(Cervezas);
-    const renderCervezas = () => Cervezas?.map((v, i) => <Card data={v} key={i} show={showModal} height={100}></Card>)
+    const renderCervezas = () => Cervezas?.map((v, i) => <Card data={v} key={i} show={showModal} height={100} tipo={Tipo.Cerveza} nuevoElemento={nuevoElemento}></Card>)
 
     const showModal = () => {
         setShow(true);

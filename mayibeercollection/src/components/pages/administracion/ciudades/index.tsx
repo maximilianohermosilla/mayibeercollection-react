@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { Ciudad } from "../../../../interfaces/ciudad";
-import { getCiudades } from "../../../../services/apiCiudad";
+import { getCiudades, insertCiudad, updateCiudad } from "../../../../services/apiCiudad";
 import style from './style.module.css'
 import Card from "../../../card";
-import { IoAddCircleOutline, IoBriefcaseOutline, IoBusinessOutline } from "react-icons/io5";
+import { IoBriefcaseOutline, IoBusinessOutline } from "react-icons/io5";
+import { Tipo } from "../../../../interfaces/tipo";
+import ModalBootstrap from "../../../modal";
 
 export default function AdministracionCiudades() {
     const [Ciudades, setCiudades] = useState<Ciudad[]>([]);
@@ -11,20 +13,33 @@ export default function AdministracionCiudades() {
 
     const fetchCiudades = async () => {
         let lista: Ciudad[] = await getCiudades();
-        let listaMapeada = lista?.map(m => ({ id: m.id, nombre: m.nombre, imagen: m.pais?.imagen, idpais: m.idPais }));
-        listaMapeada.sort((a, b) => a.idpais! - b.idpais!);
+        let listaMapeada = lista?.map(m => ({ id: m.id, nombre: m.nombre, imagen: m.pais?.imagen, idPais: m.idPais, nombrePais: m.pais?.nombre }));
+        listaMapeada.sort((a, b) => a.idPais! - b.idPais!);
         setCiudades(listaMapeada);
     }
 
     useEffect(() => {
         fetchCiudades();
     }, []);
-    console.log(Ciudades);
-    const renderCiudades = () => Ciudades?.map((v, i) => <Card data={v} key={i} show={showModal} height={50}></Card>)
-
     
-    const showModal = () => {
-        setShow(true);
+    const renderCiudades = () => Ciudades?.map((v, i) => <Card data={v} key={i} show={showModal} height={80} tipo={Tipo.Ciudad} nuevoElemento={nuevoElemento}></Card>)
+
+    const showModal = (modal: boolean) => {
+        console.log(modal)
+        setShow(modal);
+    }
+       
+    const nuevoElemento = async (elemento: any) => {
+        let result;
+        if(elemento?.id! > 0){            
+            result = await updateCiudad(elemento);
+        }
+        else{            
+            result = await insertCiudad(elemento);
+        }
+        if(result){
+            window.location.reload();  
+        }
     }
 
     return (<div>
@@ -33,9 +48,7 @@ export default function AdministracionCiudades() {
                 <h1 className="title text-light px-3 pt-1 mb-0"><IoBriefcaseOutline className="text-info"></IoBriefcaseOutline> Administración</h1>
                 <h3 className="title text-warning px-3"><IoBusinessOutline className="text-success mx-2"></IoBusinessOutline> Ciudades</h3>
             </div>
-            <div className={style.divButtonAdd}>
-                <button type="button" className="btn btn-success">Agregar</button>
-            </div>
+            <ModalBootstrap data={undefined} showModal={show} tipo={Tipo.Ciudad} nuevoElemento={nuevoElemento}></ModalBootstrap>
         </div>
         <div className={`container-fluid text-light ${style.grillaMain}`}>
             {renderCiudades()}

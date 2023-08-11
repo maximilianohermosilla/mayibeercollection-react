@@ -4,14 +4,17 @@ import { useEffect, useState } from "react";
 import { Modal } from "react-bootstrap";
 import FormGeneral from "../formGeneral";
 import { IoExitOutline } from "react-icons/io5";
+import { Tipo } from "../../interfaces/tipo";
 
 interface CardProps {
     data: any;
     height: number;
     show: any;
+    tipo: Tipo;
+    nuevoElemento: any;
 }
 
-export default function Card({ data, height, show }: CardProps) {
+export default function Card({ data, height, show , tipo, nuevoElemento }: CardProps) {
     const [elemento, setElemento] = useState<any>(data);
     const [clickedEdit, setClickedEdit] = useState<boolean>(true);
     const [showEdit, setShowEdit] = useState<boolean>(false);
@@ -21,7 +24,7 @@ export default function Card({ data, height, show }: CardProps) {
     const handleClose = () => setShowEdit(false);
     const handleShow = () => setShowEdit(true); 
 
-    useEffect( () => {
+    useEffect( () => {        
         setElemento(data);
         if(newFile){
             setFile(file || data?.imagen);
@@ -32,7 +35,6 @@ export default function Card({ data, height, show }: CardProps) {
     })
     
     const myClickEditHandler = async () => {  
-        console.log(data?.id);    
         setShowEdit(true);
     } 
 
@@ -47,9 +49,9 @@ export default function Card({ data, height, show }: CardProps) {
         setNewFile(true);
     }
 
-    const nuevoElemento = (elemento: any) => {
-        console.log(elemento)
-    }
+    // const nuevoElemento = (elemento: any) => {
+    //     console.log(elemento)
+    // }
     
     const closeModal = () => {
     let buttonClose = document.getElementById("btnCancelar");
@@ -82,7 +84,7 @@ export default function Card({ data, height, show }: CardProps) {
             <Modal.Body className="bg-primary text-light border-bottom border-secondary">
             <div className="modal-body">
                 <div className="row">
-                    <FormGeneral data={data} nuevoElemento={nuevoElemento} uploadImage={updateImage} closeModal={closeModal} ></FormGeneral>
+                    <FormGeneral data={data} nuevoElemento={nuevoElemento} uploadImage={updateImage} closeModal={closeModal} tipo={tipo}></FormGeneral>
                 </div>
             </div>
             </Modal.Body>

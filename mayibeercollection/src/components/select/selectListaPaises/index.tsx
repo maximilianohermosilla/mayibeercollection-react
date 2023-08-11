@@ -23,6 +23,7 @@ export default function SelectListaPaises({ selectedOption, onChangeSelect, isFi
     }
 
     useEffect(() => {
+      console.log(selectedOption)
         fetchPaises();
         setPais({ value: selectedOption?.id || '0', label: selectedOption?.nombre || 'Selecccionar...'});    
     }, []);

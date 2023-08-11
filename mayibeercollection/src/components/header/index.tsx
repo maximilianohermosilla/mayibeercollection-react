@@ -27,8 +27,8 @@ export default function Header({ isLogged, isAdmin }: HeaderProps) {
                             {/* <a className="dropdown-item" href="/administracion/cervezas"><IoBeerOutline></IoBeerOutline> Cervezas</a> */}
                             <a className="dropdown-item" href="/administracion/marcas"><IoBagHandleOutline></IoBagHandleOutline> Marcas</a>
                             <a className="dropdown-item" href="/administracion/estilos"><IoPintOutline></IoPintOutline> Estilos</a>
-                            <a className="dropdown-item" href="/administracion/ciudades"><IoBusinessOutline></IoBusinessOutline> Ciudades</a>
                             <a className="dropdown-item" href="/administracion/paises"><IoEarthOutline></IoEarthOutline> Países</a>
+                            <a className="dropdown-item" href="/administracion/ciudades"><IoBusinessOutline></IoBusinessOutline> Ciudades</a>
                             <div className="dropdown-divider"></div>
                             <a className="dropdown-item" href="/administracion/configuracion"><IoSettingsOutline></IoSettingsOutline> Configuración</a>
                         </div>
