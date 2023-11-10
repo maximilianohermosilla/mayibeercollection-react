@@ -48,14 +48,10 @@ export default function Card({ data, height, show , tipo, nuevoElemento }: CardP
         setFile(fileUploaded);
         setNewFile(true);
     }
-
-    // const nuevoElemento = (elemento: any) => {
-    //     console.log(elemento)
-    // }
     
     const closeModal = () => {
-    let buttonClose = document.getElementById("btnCancelar");
-    buttonClose?.click();
+        let buttonClose = document.getElementById("btnCancelar");
+        buttonClose?.click();
     }
 
     return <div className={style.card}>
